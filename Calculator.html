@@ -49,28 +49,28 @@
 			<div class="mui-textfield">
 				<div>
 					<label style="transition: 0.15s ease-out;">Money In Savings</label>
-					<input id="money" type="text" value="" class="mui--is-empty mui--is-dirty">
+					<input id="money" type="text" placeholder="To Nearest USD">
 				</div>
 				<br>
 				<div>
-					<label style="transition: 0.15s ease-out;">Your Bank</label>
-						<input id="bank" list="browsers">
-						<datalist id="browsers">
-							<option value="CitiBank">
+					<label>Your Bank</label>
+						<input id="bank" list="browsers" placeholder="Select From List">
+						<datalist id="browsers" class="datalist">
 							<option value="Bank of America">
+							<option value="CitiBank">
 							<option value="Wells Fargo">
 						</datalist>
 				</div>
 				<br>
 				<div id="button">
-					<input type="submit" value="Calculate" onclick="compute();"/>
+					<input type="button" value="Calculate" onclick="compute();"/>
 				</div>
 			</div>
 		</div>
 		<br>
 		<div id="ans">
 			<p class="box-title">Total Carbon Footprint:</p>
-			<span class="display-value" name="monthlyPaymentsAmortizationPeriod">0 Tons</span>
+			<span id="total">0</span>
 		</div>
 	</form>
 	</div>
@@ -80,12 +80,22 @@
 <script>
 
 	function compute(){
-		alert('hello');
-		let money = document.getElementsById("money").value;
-		let bank = document.getElementsById("bank").value;
-	}
-
-	function numberWithCommas(x) {
-	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		var items = [
+			{name: "CitiBank", value: 99},
+			{name: "Bank of America", value: 89},
+			{name: "Wells Fargo", value: 25}
+		];
+		let money = document.getElementById("money").value;
+		money = money.split(',').join('');
+		money = money.split('$').join('');
+		money = parseInt(money);
+		let bankStr = document.getElementById("bank").value;
+		let index = items.findIndex(object => {
+			return object.name === bankStr;
+		});
+		let bank = items[index].value;
+		let ton = money * bank;
+		let response = ton.toString() + " Tons";
+		document.getElementById("total").innerHTML = response;
 	}
 </script>
