@@ -2,36 +2,12 @@
 	body{
 		font-family: Roboto,sans-serif;
 	    background-color: #f5f5f5;
-	}
-
-	.sub-header{
-		padding: 20px;
-		width: 100%;
-		display: inline-block;
-		overflow-x: auto;
-	    white-space: nowrap;
-	    padding-left: 10px;
-	    min-height: 40px;
-	    text-align: center;
-	    background: #2a3249;
-	}
-
-	.sub-header > a {
-		color: grey;
-		padding: 0 10px;	
-		text-decoration: none;
-	}
-
-
-	.sub-header > a.linked {
-		color: white;
-		padding: 0 10px;	
-		text-decoration: none;
+		text-align: center;
 	}
 
 	#div1{
 		margin: 25px auto;
-	    width: 85%;
+	    width: 30%;
 	    border-radius: 5px;
 	    padding: 15px;
 	    margin-bottom: 20px;
@@ -46,12 +22,7 @@
 	}
 
 	.calculator-form{
-		width: 60%;
-	}
-
-
-	#boxes{
-		width: 40%;
+		width: 100%;
 	}
 
 	.mui-textfield label, .box-title{
@@ -67,114 +38,51 @@
 	    width: 50%;
 	    text-align: center;
 	}
-
-	.or{
-		width: 5%;
-		display: inline;
-	}
-
-	.hidden{
-		display: none;
-	}
 </style>
 <div id="page">
 	<div id="div1">
 	<form class="calculator-form" _lpchecked="1">
 		<h2 class="calculator-title">Carbon Footprint Calculator</h2>
-		<h4>Calculate your saved money's carbon footprint!</h4>
+		<h4>Calculate your money's carbon footprint!</h4>
 		<div class="margin-top"></div>
 		<div class="formatted-input-container">
 			<div class="mui-textfield">
-				<label style="transition: 0.15s ease-out;">Money In Savings</label>
-				<input type="text" name="moneySaved" value="" class="mui--is-empty mui--is-dirty">
-			</div>
-		</div>
-		<br><br>
-		<div id="boxes">
-			<div class="box">
-			<p class="amount">
 				<div>
-					<input list="browsers" name="browser">
-					<datalist id="browsers">
-						<option value="CitiBank">
-						<option value="Bank of America">
-						<option value="Wells Fargo">
-					</datalist>
+					<label style="transition: 0.15s ease-out;">Money In Savings</label>
+					<input id="money" type="text" value="" class="mui--is-empty mui--is-dirty">
 				</div>
-				<p class="box-title">Total Carbon Footprint</p>
-				<span class="display-value" name="monthlyPaymentsAmortizationPeriod">0 Tons</span>
-			</p>
+				<br>
+				<div>
+					<label style="transition: 0.15s ease-out;">Your Bank</label>
+						<input id="bank" list="browsers">
+						<datalist id="browsers">
+							<option value="CitiBank">
+							<option value="Bank of America">
+							<option value="Wells Fargo">
+						</datalist>
+				</div>
+				<br>
+				<div id="button">
+					<input type="submit" value="Calculate" onclick="compute();"/>
+				</div>
 			</div>
 		</div>
-		</form>
+		<br>
+		<div id="ans">
+			<p class="box-title">Total Carbon Footprint:</p>
+			<span class="display-value" name="monthlyPaymentsAmortizationPeriod">0 Tons</span>
+		</div>
+	</form>
 	</div>
 
 
 </div>
 <script>
-const
 
-	$div1 = document.getElementById("div1"),
-	$div2 = document.getElementById("div2");
-
-
-	$moneyObject = document.getElementsByName("moneySaved")[0];
-	$bankObject = document.getElementsByName("browser")[0];
-
-
-	$moneyObject.addEventListener("keyup", changeActions);
-
-
-	function changeActions() {
-		var t = this;
-		var $loanAmount = $loanAmountObject.value;
-		$loanAmount = $loanAmount.replace("$","");
-		$loanAmount = $loanAmount.replace(",","");
-		$loanAmount = $loanAmount.replace(".",",");
-		var $interestRate = $interestRateObject.value;
-		$interestRate = $interestRate.replace("%","");
-
-		var $initialTerm = $initialTermObject.value;
-		var $interestOnly = $interestOnlyObject.value;
-		var $amortizationYears = $amortizationYearsObject.value;
-		var $amortizationMonths = $amortizationMonthsObject.value;
-		var $annualUnderwrittenNOI = $annualUnderwrittenNOIObject.value;
-		$annualUnderwrittenNOI = $annualUnderwrittenNOI.replace("$","");
-		$annualUnderwrittenNOI = $annualUnderwrittenNOI.replace(",","");
-		$annualUnderwrittenNOI = $annualUnderwrittenNOI.replace(".",",");
-
-		var $monthlyPaymentsAmortizationPeriod = $monthlyPaymentsAmortizationPeriodObject.value;
-		var $annualPaymentsAmortizationPeriod = $annualPaymentsAmortizationPeriodObject.value;
-		var $balanceAtMaturity = $balanceAtMaturityObject.value;
-		var $debtServiceCoverageRatio = $debtServiceCoverageRatioObject.value;
-
-
-	    if ("amortizationYears" === t.name ? ($amortizationYears = t.value, $amortizationMonths = 12 * t.value) : "amortizationMonths" === t.name && ($amortizationMonths = t.value, $amortizationYears = t.value / 12), $loanAmount.length && $interestRate && ($amortizationMonths || $amortizationYears)) {
-	        var n = $loanAmount * ($interestRate / 1200) * Math.pow(1 + $interestRate / 1200, $amortizationMonths),
-	            a = Math.pow(1 + $interestRate / 1200, $amortizationMonths) - 1;
-	        if ($monthlyPaymentsAmortizationPeriod = n / a, $annualPaymentsAmortizationPeriod = n / a * 12, $interestOnly ? ($monthlyPaymentsInterestOnlyPeriod = $loanAmount * ($interestRate / 100) / 12, $annualPaymentsInterestOnlyPeriod = 12 * $monthlyPaymentsInterestOnlyPeriod) : ($monthlyPaymentsInterestOnlyPeriod = 0, $annualPaymentsInterestOnlyPeriod = 0), $initialTerm) {
-	            var r = $interestRate / 100 / 12,
-	                o = 12 * $initialTerm,
-	                i = 12 * $interestOnly,
-	                s = $loanAmount * Math.pow(1 + r, o - i),
-	                l = r * $loanAmount / (1 - Math.pow(1 + r, -$amortizationMonths)) / r * (Math.pow(1 + r, o - i) - 1);
-	            $balanceAtMaturity = s - l
-	        } else $balanceAtMaturity = 0;
-	        $annualUnderwrittenNOI ? $debtServiceCoverageRatio = $annualUnderwrittenNOI / (12 * $monthlyPaymentsAmortizationPeriod) : $debtServiceCoverageRatio = 0
-	    } else $monthlyPaymentsAmortizationPeriod = 0, $annualPaymentsAmortizationPeriod = 0, $monthlyPaymentsInterestOnlyPeriod = 0, $annualPaymentsInterestOnlyPeriod = 0, $balanceAtMaturity = 0, $debtServiceCoverageRatio = 0
-
-
-		$loanAmountObject.value = ($loanAmount==0)?"":"$"+numberWithCommas($loanAmount);
-		$interestRateObject.value = ($interestRate==0)?"":$interestRate+"%";
-		$initialTermObject.value = $initialTerm;
-		$interestOnlyObject.value = $interestOnly;
-		$amortizationYearsObject.value = ($amortizationYears==0)?"":$amortizationYears;
-		$amortizationMonthsObject.value = ($amortizationMonths==0)?"":$amortizationMonths ;
-		$annualUnderwrittenNOIObject.value = ($annualUnderwrittenNOI==0)? "":"$"+numberWithCommas($annualUnderwrittenNOI);
-		$monthlyPaymentsAmortizationPeriodObject.innerHTML = ($monthlyPaymentsAmortizationPeriod==0)? "$0":"$"+numberWithCommas((parseFloat($monthlyPaymentsAmortizationPeriod)).toFixed(2));
-		$annualPaymentsAmortizationPeriodObject.innerHTML =  ($annualPaymentsAmortizationPeriod==0)? "$0":"$"+ numberWithCommas((parseFloat($annualPaymentsAmortizationPeriod)).toFixed(2));
-		$balanceAtMaturityObject.innerHTML =  ($balanceAtMaturity==0)? "$0":"$"+ numberWithCommas((parseFloat($balanceAtMaturity)).toFixed(2));
-		$debtServiceCoverageRatioObject.innerHTML = numberWithCommas((parseDouble($debtServiceCoverageRatio)).toFixed(3));
+	function compute(){
+		alert('hello');
+		let money = document.getElementsById("money").value;
+		let bank = document.getElementsById("bank").value;
 	}
 
 	function numberWithCommas(x) {
