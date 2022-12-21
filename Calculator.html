@@ -54,7 +54,7 @@
 				<br>
 				<div>
 					<label>Your Bank</label>
-						<input id="bank" list="browsers" placeholder="Select From List">
+						<input id="bank" list="browsers" placeholder="Type or Select From List">
 						<datalist id="browsers" class="datalist">
 							<option value="Bank of America">
 							<option value="CitiBank">
@@ -63,7 +63,7 @@
 				</div>
 				<br>
 				<div id="button">
-					<input type="button" value="Calculate" onclick="compute();"/>
+					<input id="sub" type="button" value="Calculate" onclick="compute();"/>
 				</div>
 			</div>
 		</div>
@@ -78,6 +78,13 @@
 
 </div>
 <script>
+	var input = document.getElementById("bank");
+	input.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			document.getElementById("sub").click();
+		}
+	});
 
 	function compute(){
 		var items = [
@@ -96,6 +103,6 @@
 		let bank = items[index].value;
 		let ton = money * bank;
 		let response = ton.toString() + " Tons";
-		document.getElementById("total").innerHTML = response;
+		document.getElementById("total").innerHTML = response.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 </script>
