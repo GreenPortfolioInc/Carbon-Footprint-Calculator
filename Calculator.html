@@ -1,8 +1,12 @@
 <style>
 	body{
 		font-family: Roboto,sans-serif;
-	    background-color: #f5f5f5;
+	    background-color: #ffffff;
 		text-align: center;
+	}
+
+	img.rounded-corners{
+		border-radius: 10px;
 	}
 
 	#div1{
@@ -23,6 +27,7 @@
 
 	.calculator-form{
 		width: 100%;
+		height: 97%;
 	}
 
 	.mui-textfield label, .box-title{
@@ -39,43 +44,44 @@
 	    text-align: center;
 	}
 </style>
-<div id="page">
-	<div id="div1">
-	<form class="calculator-form" _lpchecked="1">
-		<h2 class="calculator-title">Carbon Footprint Calculator</h2>
-		<h4>Calculate your money's carbon footprint!</h4>
-		<div class="margin-top"></div>
-		<div class="formatted-input-container">
-			<div class="mui-textfield">
-				<div>
-					<label style="transition: 0.15s ease-out;">Money In Savings</label>
-					<input id="money" type="text" placeholder="To Nearest USD">
-				</div>
-				<br>
-				<div>
-					<label>Your Bank</label>
-						<input id="bank" list="browsers" placeholder="Type or Select From List">
-						<datalist id="browsers" class="datalist">
-							<option value="Bank of America">
-							<option value="CitiBank">
-							<option value="Wells Fargo">
-						</datalist>
-				</div>
-				<br>
-				<div id="button">
-					<input id="sub" type="button" value="Calculate" onclick="compute();"/>
+<div style="background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png);">
+	<div id="page">
+		<form class="calculator-form" _lpchecked="1">
+			<h2 class="calculator-title">Carbon Footprint Calculator</h2>
+			<h4>Calculate your money's carbon footprint!</h4>
+			<div class="margin-top"></div>
+			<div class="formatted-input-container">
+				<div class="mui-textfield">
+					<div>
+						<label style="transition: 0.15s ease-out;">Money In Savings</label>
+						<input id="money" type="text" placeholder="To Nearest USD">
+					</div>
+					<br>
+					<div>
+						<label>Your Bank</label>
+							<input id="bank" list="browsers" placeholder="Type or Select From List">
+							<datalist id="browsers" class="datalist">
+								<option value="Bank of America">
+								<option value="CitiBank">
+								<option value="Wells Fargo">
+							</datalist>
+					</div>
+					<br>
+					<div id="button">
+						<input id="sub" type="button" value="Calculate" onclick="compute();"/>
+					</div>
 				</div>
 			</div>
-		</div>
-		<br>
-		<div id="ans">
-			<p class="box-title">Total Carbon Footprint:</p>
-			<span id="total">0</span>
-		</div>
-	</form>
+			<br>
+			<div id="ans">
+				<p class="box-title">Total Carbon Footprint:</p>
+				<span id="total">0</span>
+			</div>
+			<a href="https://greenportfolio.com/" target="_blank">
+				<div style="text-align: left;"><img src="https://i0.wp.com/greenportfolio.com/wp-content/uploads/2021/09/Icon-blue-favicon.png?fit=512%2C512&ssl=1" width="50" alt="My Image" class="rounded-corners" /></div>
+			</a>
+		</form>
 	</div>
-
-
 </div>
 <script>
 	var input = document.getElementById("bank");
