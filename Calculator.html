@@ -9,29 +9,19 @@
 		border-radius: 10px;
 	}
 
-	#div1{
-		margin: 25px auto;
-	    width: 30%;
-	    border-radius: 5px;
-	    padding: 15px;
-	    margin-bottom: 20px;
-	    border-radius: 0;
-	    background-color: #FFF;
-	    box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 2px 0 rgba(0,0,0,.12);
-	    
-	    padding-left: 20px;
-	    padding-bottom: 15px;
-	    float: left;
-	    display: flex;
-	}
-
 	.calculator-form{
 		width: 100%;
-		height: 97%;
+		height: 100%;
 	}
 
 	.mui-textfield label, .box-title{
 		font-weight: bold;
+	}
+
+	.small-pad{
+		padding-top: 10px;
+		font-weight: bold;
+		margin: 0px;
 	}
 
 	.formatted-input-container .mui-textfield{
@@ -73,10 +63,20 @@
 				</div>
 			</div>
 			<br>
-			<div id="ans">
+			<div  id="ans">
 				<p class="box-title">Total Carbon Footprint:</p>
 				<span id="total">0</span>
 			</div>
+			<p class="small-pad">Which is Equal to</p>
+			<div style="width: 50%; float:left">
+				<p class="box-title">Driving:</p>
+				<span id="per1">0</span>
+			</div>
+			<div style="width: 50%; float:right">
+				<p class="box-title">Anually Powering:</p>
+				<span id="per2">0</span>
+			</div>
+			<br><br>
 			<a href="https://greenportfolio.com/" target="_blank">
 				<div style="text-align: left;"><img src="https://i0.wp.com/greenportfolio.com/wp-content/uploads/2021/09/Icon-blue-favicon.png?fit=512%2C512&ssl=1" width="50" alt="My Image" class="rounded-corners" /></div>
 			</a>
@@ -94,9 +94,9 @@
 
 	function compute(){
 		var items = [
-			{name: "CitiBank", value: 99},
-			{name: "Bank of America", value: 89},
-			{name: "Wells Fargo", value: 25}
+			{name: "CitiBank", value: 0.012},
+			{name: "Bank of America", value: 0.0002},
+			{name: "Wells Fargo", value: 0.09}
 		];
 		let money = document.getElementById("money").value;
 		money = money.split(',').join('');
@@ -107,8 +107,14 @@
 			return object.name === bankStr;
 		});
 		let bank = items[index].value;
-		let ton = money * bank;
+		let ton =  Math.trunc(money * bank*100) / 100;
 		let response = ton.toString() + " Tons";
 		document.getElementById("total").innerHTML = response.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		let miles = Math.trunc(ton * 2482);
+		let mileage = miles.toString() + " Miles";
+		document.getElementById("per1").innerHTML = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		let year = Math.trunc(ton * 0.195 * 100) / 100;
+		let years = year.toString() + " Homes";
+		document.getElementById("per2").innerHTML = years.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 </script>
