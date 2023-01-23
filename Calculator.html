@@ -93,28 +93,48 @@
 	});
 
 	function compute(){
+
+		//Bank data
+
 		var items = [
-			{name: "CitiBank", value: 0.012},
-			{name: "Bank of America", value: 0.0002},
-			{name: "Wells Fargo", value: 0.09}
+			{name: "Citigroup", value: 0.0002051058093},
+			{name: "Bank of America", value: 0.0001513681595},
+			{name: "Wells Fargo", value: 0.00009076036226},
+			{name: "BNY Mellon", value: 0.00005185854323},
+			{name: "Goldman Sachs", value: 0.0001858890973},
+			{name: "JP Morgan Chase", value: 0.0001343559671},
+			{name: "Morgan Stanley", value: 0.000132219199},
+			{name: "State Street", value: 0.000008569180012}
 		];
+
+		//getting values from user
+
 		let money = document.getElementById("money").value;
 		money = money.split(',').join('');
 		money = money.split('$').join('');
 		money = parseInt(money);
 		let bankStr = document.getElementById("bank").value;
+
+		// searching items for bank
+
 		let index = items.findIndex(object => {
 			return object.name === bankStr;
 		});
-		let bank = items[index].value;
-		let ton =  Math.trunc(money * bank*100) / 100;
+
+		// calculating and outputting co2
+
+		let ton =  Math.trunc(money * (items[index].value) *100) / 100;
 		let response = ton.toString() + " Tons";
 		document.getElementById("total").innerHTML = response.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		let miles = Math.trunc(ton * 2482);
-		let mileage = miles.toString() + " Miles";
+
+		// calculating and outputting milage equivalent
+
+		let mileage = (Math.trunc(ton * 2482)).toString() + " Miles";
 		document.getElementById("per1").innerHTML = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		let year = Math.trunc(ton * 0.195 * 100) / 100;
-		let years = year.toString() + " Homes";
+
+		// calculating and outputting annual homes equivalent
+
+		let years = (Math.trunc(ton * 0.195 * 100) / 100).toString() + " Homes";
 		document.getElementById("per2").innerHTML = years.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 </script>
