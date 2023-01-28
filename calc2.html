@@ -1,0 +1,397 @@
+<html>
+    <head>
+        <style>
+            @font-face {
+                font-family: 'Montserrat';
+                font-style: italic;
+                font-weight: 100;
+                src: url(https://fonts.gstatic.com/s/montserrat/v25/JTUQjIg1_i6t8kCHKm459WxRyS7m0dR9pA.woff2) format('woff2');
+                unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+                }
+            body {
+                margin: 0;
+                min-height: 100%;
+                background-color: white;
+                background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png);
+                font-family: 'Montserrat webfont', sans-serif;
+                color: black;
+                font-size: 16px;
+                margin: 1em;
+            }
+            .calcContainer {
+                        text-align: left;
+                        max-width: 375px;
+                        margin-bottom: 80px;
+                        overflow: hidden;
+                        color: black;
+                        margin-top: 40px;
+            }
+
+            .calcSlider {
+                -webkit-appearance: none;
+                width: 190%;
+                height: 10px;
+                background-color: gray;
+                color: green;
+                z-index: 0;
+            }
+
+            .calcSlider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 30px;
+                height: 25px;
+                background: #F4F5F3;
+                cursor: pointer;
+                z-index: 10;
+                border-width: 0px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            .calcSlider::-moz-range-thumb {
+                width: 30px;
+                height: 25px;
+                background: #F4F5F3;
+                cursor: pointer;
+                z-index: 10;
+                border-width: 0px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            .calcText {
+                font-weight: 100;
+                color: black;
+                margin-top: 0px;
+                font-size:40px;
+                margin-block-start: 0em;
+                margin-block-end: 0.1em;
+                /* line-height:40px;  */
+            }
+
+            .calcSpan,.calc_current {
+                color: black;
+            }
+            .calc_co2,.calc_mileage,.calc_homeuse {
+                /* line-height:0.2em;  */
+            }
+            .calcTextButton {
+                border: solid 1px gray;
+                padding: 0.3em;
+                border-radius: 0.2em;
+                box-shadow: 0.2em 0.2em;
+                margin: 0.4em;
+            }
+            .decider {
+                /* border:solid 0.25px gray; */
+                color:gray;
+                
+            }
+            .decider.green {
+                color: #bfbfff
+            }
+            .decider.pink {
+                color: #ffbfbf
+            }
+            .footnote {
+                font-size: 30%;
+            }
+            .reduced {
+                font-size: 50%;
+            }
+            .section {
+                margin: 0.2em;
+                max-width: 90%;
+                background: white;
+                border: 0.25px solid gray;
+                padding: 1em;
+                border-radius: 0.2em;
+                position: absolute;
+                top: 40px;
+                left: 80px;
+            }
+            .container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap:wrap;
+                
+                
+            }
+            .total_container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap:wrap;
+                /* justify-content: space-evenly; */
+            }
+            .selectors {
+                justify-content: space-between;
+            }
+            .totaler, #totaler .total_section h3 {
+                font-size: 120%;
+            }
+            .totaler .footnote {
+                font-size: 50%;
+                flex-wrap: nowrap;
+            }
+            .total_section{
+                margin-right: 1em;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+            .centered {
+                align-self: center;
+            }
+            .lightweight {
+                font-weight: 100;
+            }
+            .decisionButtons {
+                max-width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <select id="source_select"></select> -->
+        <!-- <div onclick="addSource(document.body,document.getElementById('source_select').value)">Addsource</div> -->
+        
+        <h2 class="calculator-title">Carbon Footprint Calculator</h2>
+			<h4>Calculate your money's carbon footprint!</h4>
+        <div id="totaler" class="container totaler"></div>
+        <div id="selectors" class="container selectors"></div>
+        
+        <div id="container" class="container"></div>
+
+        <slider-template style="display:none;flex-direction:column;" class="section">
+            <div>
+                <span class="calcSpan" id="current_name">at ...</span>
+                
+            </div>
+            
+            <div>
+            <h3 class="calcText"><span id="calc_co2" class="calc_co2" style="font-weight:900;">0</span> <span class="footnote">tons of CO2/yr</span></h3>
+            </div>
+            <div>
+            
+            <h3 class="calcText"><span id="calc_mileage" class="calc_mileage"  style="font-weight:100;">0</span> <span class="footnote">miles</span></h3>
+            </div>
+            <div>
+                <h3 class="calcText"><span id="calc_homeuse" class="calc_homeuse" style="font-weight:900;">0</span> <span class="footnote">annual homes powered</span></h3>
+            </div>
+            <input oninput="updateCalc(this.parentNode.id, this.parentNode.getAttribute('source_id'))" type="range" max="250000" step="1000" id="calcSlider" class="calcSlider" value="0" style="width: 100%; min-height: 1px !important">
+            <div style="display: flex; justify-content: space-between; margin-top: 1em">
+                <span class="calcSpan reduced">$0</span>
+                <span class="calcSpan"></span>
+                <span id="calc_current" class="calc_current">$0</span>
+                <span class="calcSpan"></span>
+                <span class="calcSpan reduced">$250,000</span>
+            </div>
+            <div class="decisionButtons">
+                <span onclick="closeSource(this)" class="decider pink">Remove</span>
+                <span onclick="hideSource(this)" class="decider green">OK</span>
+            </div>
+            
+        </slider-template>
+        <total-template style="display:none;" class="totaler">
+            <div class="total_container">
+                <div class="total_section">
+                    <h3 class="calcText"><span id="total_co2" class="calc_co2" style="font-weight:900;">0</span></h3> 
+                    <span class="footnote centered">tons of CO2/yr</span>
+                </div>
+                <div class="total_section">
+                    <h3 class="calcText"><span id="total_mileage" class="calc_mileage" style="font-weight:100;">0</span></h3>
+                    <span class="footnote centered">miles</span>
+                </div>
+                <div class="total_section">
+                    <h3 class="calcText"><span id="total_homeuse" class="calc_homeuse" style="font-weight:900;">0</span></h3>
+                    <span class="footnote centered">annual homes powered</span>
+                </div>
+            </div>
+        </total-template>
+        <script>
+            var sources = [
+                {name: "Citigroup", value: 0.0002051058093},
+                {name: "Bank of America", value: 0.0001513681595},
+                {name: "Wells Fargo", value: 0.00009076036226},
+                {name: "BNY Mellon", value: 0.00005185854323},
+                {name: "Goldman Sachs", value: 0.0001858890973},
+                {name: "JP Morgan Chase", value: 0.0001343559671},
+                {name: "Morgan Stanley", value: 0.000132219199},
+                {name: "State Street", value: 0.000008569180012}
+            ];
+            var sources_added = []
+            var source_values = {}
+            var source_totals = {}
+            var closed_sources = []
+
+            function addSource(parent_element, source_id, multiplier) {
+                template = document.getElementsByTagName('slider-template')[0].cloneNode(true)
+                template.style = "display:block";
+                template.querySelector("#current_name").innerHTML = `at ${sources[source_id].name}`
+                template.id = `${sources[source_id].name}`
+                template.setAttribute('source_id',source_id)
+                parent_element.appendChild(
+                    template
+                )
+            }
+
+            function closeSource(e) {
+                e.parentNode.parentNode.querySelector('#calcSlider').value=0
+                updateCalc(e.parentNode.parentNode.id, e.parentNode.parentNode.getAttribute('source_id'))
+                updateTotals()
+                closed_sources.push(e.parentNode.parentNode.id)
+                document.getElementById(e.parentNode.parentNode.id).style.display = "none"
+                // updateTotals()
+            }
+            function hideSource(e) {
+                document.getElementById(e.parentNode.parentNode.id).style.display = "none"
+            }
+
+            function hideAllSources() {
+                for (source_name of Object.keys(source_values)) {
+                    document.getElementById(source_name).style.display = "none";
+                }
+            }
+            function showSource(e) {
+                document.getElementById(e.parentNode.parentNode.id).style.display = "block"
+            }
+
+            function addTotaler(parent_element) {
+                template = document.getElementsByTagName('total-template')[0].cloneNode(true)
+                template.style = "display:block";
+                template.id = 'totaler'
+                parent_element.appendChild(
+                    template
+                )
+            }
+
+            function updateCalc(id, source_id) {
+                multiplier = sources[parseInt(source_id)].value
+                source_name = sources[parseInt(source_id)].name
+                var x = document.getElementById(id).getElementsByClassName("calcSlider")[0].value;
+                document.getElementById(id).getElementsByClassName("calc_current")[0].innerHTML = makeDollarsAndCents(x);
+                document.getElementById(id).getElementsByClassName("calc_co2")[0].innerHTML = makeCO2(x,multiplier).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                });
+                document.getElementById(id).getElementsByClassName("calc_mileage")[0].innerHTML = makeCars(makeCO2(x,multiplier)).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                document.getElementById(id).getElementsByClassName("calc_homeuse")[0].innerHTML = makeHomes(makeCO2(x,multiplier)).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                });
+                source_values[source_name] = {
+                    'CO2': makeCO2(x,multiplier)
+                    ,'Cars':makeCars(makeCO2(x,multiplier))
+                    ,'Homes':makeHomes(makeCO2(x,multiplier))
+                }
+                // console.log(source_values)
+                updateTotals()
+            }
+
+            function updateTotals() {
+                
+                // console.log(source_values[0])
+                source_totals = {}
+                for (source_name of Object.keys(source_values)) {
+                    if (!closed_sources.indexOf(source_name)>-1) {
+                        // // console.log(source_values)
+                        // console.log(source_key)
+                        source_totals = {
+                            'CO2':(parseFloat(source_totals.CO2 || 0) + parseFloat(source_values[source_name].CO2)).toFixed(2)
+                            ,'Cars':(parseFloat(source_totals.Cars || 0) + parseFloat(source_values[source_name].Cars)).toFixed(2) 
+                            ,'Homes':(parseFloat(source_totals.Homes  || 0) + parseFloat(source_values[source_name].Homes)).toFixed(2)
+                        }
+                    }
+                    document.getElementById("total_co2").innerHTML = parseFloat(source_totals.CO2).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                    document.getElementById("total_mileage").innerHTML = parseFloat(source_totals.Cars).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                })
+                    document.getElementById("total_homeuse").innerHTML = parseFloat(source_totals.Homes).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                    
+                    
+                }
+                console.log(source_totals)
+            }
+
+            function makeDollarsAndCents(amount) {
+                let dollars = parseInt(amount)
+                let formattedDollars = dollars.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+                });
+                return formattedDollars
+            }
+
+            function makeCO2(dollars,multiplier){
+                // var co2 = (dollars*1.85)/2000
+                var co2 = (dollars*(multiplier*100))/100
+                return co2
+                
+            }
+
+            function makeCars(tonsCO2e) {
+                const milesDriven = tonsCO2e * 2482
+                return milesDriven
+                
+            }
+
+            function makeHomes(tonsCO2e) {
+                const homesPowered = tonsCO2e * 0.195
+                return homesPowered
+                
+            }
+
+            addTotaler(document.getElementById('totaler'))
+
+            for (let [i,source] of sources.entries()) {
+                var element = document.createElement("div");
+                element.className = 'calcTextButton'
+                var handlerForEventClick  = (e) => {
+                    hideAllSources()
+                    if (sources_added.indexOf(source.name)<0) {
+                        addSource(document.getElementById('container'),i,source.value)
+                        sources_added.push(source.name)
+                        document.getElementById(source.name).querySelector('#calcSlider').value=0
+                        updateCalc(sources[i].name, i)
+                        updateTotals()
+                    }
+                    else {
+                        closed_sources.pop(source.name)
+                        document.getElementById(source.name).style.display = "block"
+                        updateCalc(sources[i].name, i)
+                        updateTotals()
+                    }
+                };
+                element.addEventListener("click",handlerForEventClick);
+                element.innerHTML = `${source.name}`;
+                
+                document.getElementById('selectors').appendChild(element)
+                // document.getElementById('container').appendChild(element)
+            }
+            document.body.appendChild(document.createElement('br'))
+            
+                // updateCalc(element.id, element.getAttribute('source_id')) 
+
+            
+        </script>
+        
+       
+        
+    </body>
+
+</html>
