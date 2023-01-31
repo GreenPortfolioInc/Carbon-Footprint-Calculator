@@ -1,5 +1,6 @@
 <html>
     <head>
+        <base target="_blank">
         <style>
             @font-face {
                 font-family: 'Montserrat';
@@ -11,12 +12,13 @@
             body {
                 margin: 0;
                 min-height: 100%;
-                background-color: white;
-                background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png);
+                background-color: lightgray;
+                /* background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png); */
                 font-family: 'Montserrat webfont', sans-serif;
                 color: black;
                 font-size: 16px;
                 margin: 1em;
+                
             }
             .calcContainer {
                         text-align: left;
@@ -78,7 +80,7 @@
             }
             .calcTextButton {
                 border: solid 1px gray;
-                padding: 0.3em;
+                padding: 0.1em;
                 border-radius: 0.2em;
                 box-shadow: 0.2em 0.2em;
                 margin: 0.4em;
@@ -103,10 +105,10 @@
             .section {
                 margin: 0.2em;
                 max-width: 90%;
-                background: white;
-                border: 0.25px solid gray;
+                background: #dfffdf;
+                border: 0.25px solid transparent;
                 padding: 1em;
-                border-radius: 0.2em;
+                border-radius: 1em;
                 position: absolute;
                 top: 40px;
                 left: 80px;
@@ -115,33 +117,47 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap:wrap;
-                
-                
             }
             .total_container {
                 display: flex;
-                flex-direction: row;
-                flex-wrap:wrap;
+                flex-direction: column;
+                width: 100%;
+                /* flex-wrap:wrap; */
                 /* justify-content: space-evenly; */
             }
             .selectors {
                 justify-content: space-between;
             }
-            .totaler, #totaler .total_section h3 {
-                font-size: 120%;
+            .totaler {
+                display:flex;
+                
             }
             .totaler .footnote {
                 font-size: 50%;
                 flex-wrap: nowrap;
             }
             .total_section{
-                margin-right: 1em;
-                display: flex;
+                width: 100%;
+                height: 100%;
+                display:flex;
                 flex-direction: column;
-                justify-content: space-evenly;
+                justify-content: center;
+                align-items: center;
+                
             }
             .centered {
                 align-self: center;
+            }
+            .centerflexed {
+                align-content: center;
+            }
+            .flexed {
+                display:flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .columned {
+                flex-direction: column;
             }
             .lightweight {
                 font-weight: 100;
@@ -152,19 +168,122 @@
                 flex-direction: row;
                 justify-content: space-between;
             }
+            .serif {
+                font-family: serif;
+            }
+            .justified {
+                text-align:justify;
+                justify-content: center;
+            }
+            .bold {
+                font-weight:900;
+            }
+            .thinner {
+                font-weight: 100;
+            }
+
+            .slider-wrapper {
+                margin: 1rem;
+                position: relative;
+                overflow: hidden;
+                width: 90%;
+            }
+            .slides-container {
+                height: 8rem;
+                width: 100%;
+                display: flex;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                scroll-behavior: smooth;
+            }
+            .slide {
+                width: 100;
+                height: 100%;
+                flex: 1 0 100%;
+            }
+            .slidebox {
+                display:flex;
+                flex-direction: column; 
+                justify-content: space-around;
+                align-items: center;
+            }
+            .slide-arrow {
+                position: absolute;
+                display: flex;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                height: 4rem;
+                background-color: lightgray;
+                border: none;
+                width: 2rem;
+                font-size: 3rem;
+                padding: 0;
+                cursor: pointer;
+                opacity: 0.5;
+                transition: opacity 100ms;
+            }
+            .slide-arrow:hover,
+            .slide-arrow:focus {
+                opacity: 1;
+            }
+            #slide-arrow-prev {
+                left: 0;
+                padding-left: 0.25rem;
+                border-radius: 0 2rem 2rem 0;
+            }
+            #slide-arrow-next {
+                right: 0;
+                padding-left: 0.75rem;
+                border-radius: 2rem 0 0 2rem;
+            }
+            .selectPill {
+                border:none;
+                padding: 4px;
+                
+                border-radius: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .pledgePill {
+                align-self: center;
+                border:none;
+                padding: 14px;
+                font-family:serif;
+                background-color: gray;
+                border-radius: 20px;
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            .flexcol {
+                flex-direction: column;
+            }
         </style>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     </head>
     <body>
-        <!-- <select id="source_select"></select> -->
-        <!-- <div onclick="addSource(document.body,document.getElementById('source_select').value)">Addsource</div> -->
-        
-        <h2 class="calculator-title">Carbon Footprint Calculator</h2>
-			<h4>Calculate your money's carbon footprint!</h4>
-        <div id="totaler" class="container totaler"></div>
+        <!-- MAIN PAGE BODY FOLLOWS -->
+        <div class="flexed columned">
+            <h1 class="serif centerflexed">Calculate your impact</h1>
+            <p class="centerflexed justified thinner">Your finances could be your most powerful weapon in your fight against climate change. Choosing sustainable investments is <span class="bold">21x more effective</span> in lowering your carbon footprint than many other lifestyle changes combined</p>
+        </div>
+        <label>Select from your Banks</label>
+        <select class="selectPill" onchange="addSourceFromOption(this.value, this.options[this.selectedIndex].innerHTML)" id="source_select">
+            <option value="-1">Select ...</option>
+        </select>
+        <div id="totaler" class=""></div>
         <div id="selectors" class="container selectors"></div>
         
         <div id="container" class="container"></div>
+        <div class="container flexcol" onclick="window.parent.location.href='https://greenportfolio.com'"> <!-- ALTERNATE OPTION https://bankfwd.org/pledge -->
+            <h2 class="pledgePill">Pledge</h2>
+            <h3 class="centered thinner">to switch to green bank<br/>and make your impact today</h3>
+        </div>
+        <!-- <div onclick="addSource(document.body,document.getElementById('source_select').value)">Addsource</div> -->
 
+        <!--  TEMPLATES FOLLOW  -->
         <slider-template style="display:none;flex-direction:column;" class="section">
             <div>
                 <span class="calcSpan" id="current_name">at ...</span>
@@ -198,18 +317,42 @@
         <total-template style="display:none;" class="totaler">
             <div class="total_container">
                 <div class="total_section">
-                    <h3 class="calcText"><span id="total_co2" class="calc_co2" style="font-weight:900;">0</span></h3> 
-                    <span class="footnote centered">tons of CO2/yr</span>
+                    <div class="slidebox">
+                        <h1 class=""><span class="footnote centered">Total Carbon footprint</span></h1>
+                        <h3 class="calcText"><span id="total_co2" class="calc_co2" style="font-weight:900;">0</span></h3> 
+                        <h2 class=""><span class="footnote centered">which is equal to</span></h2>
+                    </div>
                 </div>
-                <div class="total_section">
-                    <h3 class="calcText"><span id="total_mileage" class="calc_mileage" style="font-weight:100;">0</span></h3>
-                    <span class="footnote centered">miles</span>
-                </div>
-                <div class="total_section">
-                    <h3 class="calcText"><span id="total_homeuse" class="calc_homeuse" style="font-weight:900;">0</span></h3>
-                    <span class="footnote centered">annual homes powered</span>
-                </div>
+                <section class="slider-wrapper">
+                    <button class="slide-arrow" id="slide-arrow-prev">
+                      &#8249;
+                    </button>
+                    <ul class="slides-container" id="slides-container">
+                        <li class="slide">
+                            <div class="slidebox">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFd0lEQVR4nO2cXWgdRRTHf0bjV1sVUUziVeiLaCIoiqLgF37UiNbcYKEIIsbPGpu2oi8+FPFBrR9QBV+0sYjUx1rUCmpECloprYqtglqtoi+ijdbaaKNVVwbOhZvJ7L17d/fuztycHwyEzezOnPnvzpw5M3NBURRFURRFURRFURRFURRFURRFURRFUZSiOQd4CtgB7AOiktN+4HPgFeAGoJs5wmnAJuA/D0SIGqTvgEV0OJcAez1o7ChhMi/Nk3Qo5wG/e9DIUYr0KB3GscDXDkPN+HGLdGOHp3x2ZKW0HAdcBDwH/O147s10EKscBj6WQYR2CFLPucCP1nN/BU6lAzgS+MEybn2Oz4/aIEjNCzxoPftt4DAC53bLqD+AkwMQxHC/4/n3ETBdwBeWQc/G5B0CtgBTwCQwAQy2QZAhq5x3gGsb1P89xwt1BoFyk2WMGSxPd+Rb08DDeThHQdakKMfU9zcr7zbgCAJku2XISzFvbDO3c1EOggwlKOeamHtvdeRdTWBcbRnwL9DvyLclQUOZbiOrIFnL2ej42s8nIN61DHg1Jt+BBA1lJpRZBclazkkOV9iMj8cQABc4jL04Ju/+BA1l+vCsgmQtBxn87RjcWgJgYwtdwUSChjKeUFZBspZTY52jK74SjzlTKpl0UB4saFAfzFhOjQXAHuu+74Hj8ZT1VmU/SnDP0w0ayayZkIMgWcup51LHS/cyHmKChH9ZFV3S5J7FMkGLaygTrr8+B0EWZyzH5gnHM8y8yyvWWhX8Sma7cZgG+CdBV3IIuC6DIHmUY3MUsNMhag+ecKLDtbyjQf4TWlysmpQyWhUkr3JcDDgCkG+VEYDslq5og/jiUy0YPBfSB8AzwG0Sym/r+rwJQez2wOgooGTG1U/E4VkBXJaHV2bGgsc9MC7qoLRH5myrxemotCKIikEhIn0j3d3CZt2UHTI4KF7VhcC8rJ9fB7EQGAYeAV6TSWMaYQ7JMrdZcZ1Bt2PMMIWcXY69QWK8tquAB2QCuUsaPIkwJko9v/5hSxxfhoqRnaMlfH+n7HQxntmfMaJM1M/nNoQY3QwUM9lcCnzrEOXBWqYvrX+Y0LrSXswesfetdt8n12ftNpzRnyltw+zM+clq+1Ecn45SHA9Zbf+6uaiClMdZDu9WBSl5kK8XZNpc1C+kXGa1vwpSLirIXBDELO2uBN6U4NmUJPP3ZglJtxTp9Ix22perIKYSL8YcgHGtGYwHdgajUoB9uQlSBX5JEeWclOiy71QLsi8XQUYc22RaSSbUfw/+MlKgfZkFGY6p7KfAmEx25knql/7V3r0RyTNuxD+GC7YvkyC9jr1PJlx/V5PtQF3yxkxb9/7s07YayrEvkyDjjsqaBf2kXO6o9PP4w3gJ9qUWpM9RmHlzWuVeh9E+fCV9Jdk3q/3t8Huc2zbm6FMbfcZxdMkS56ywc8mUYV/FdX5lm3XxjRhRNln5jAFpWZnwsE+RFG1fRSaV9fk+RI4BRymS8TbS0p+yzKjAVIZ9y5BtKB+nuDnLyuICDxo88sy+7fVbUnvlnIfPFY46WJAdosEMusVD2JrwAGWWT3rAgwaPSrbvgLT1srSbte1Bz8xQ8/pJCx8H9RW+27fcKmRnSrfQ/ELQZx66vctDs6/XMXFKEyAc9XRi2BuiffaR4WkJFyTlCs9DJ+tCs6/HcXxsWpyBriaf8WhM8O0U/KEnRPuqMeHpXTJDHZDQ9Hz5e5WjT43kGeYQi29UQ7QvjwWcu/GXkRDtqzY5Fx6X9ga0hDsZmn19MhDaPybgSibPC64Zqcf0hWpfRaKjm+U0Vm2bzG6JHo8Fvg2o0uH2KYqiKIqiKIqiKIqiKIqiKIqiKIqiKAq+8z+vaB04je1wiQAAAABJRU5ErkJggg==">
+                                <div class=""><span class="">driving&nbsp;</span><span id="total_mileage" class="calc_mileage" style="font-weight:900;">0</span><span class="">&nbsp;miles</span></div>
+                            </div>
+                        </li>
+                        <li class="slide">
+                            <div class="slidebox">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAABVCAYAAAA49ahaAAAACXBIWXMAAAsTAAALEwEAmpwYAAADcklEQVR4nO2bvWsUQRTAfyrEiCGiiBCQgDYioiDXKCgW2qQ1Gq1sJIFo0E4kVYLRf8EcGJv0FwQRRDtBRNJoMH50AaMBC1EsjB85GV1h8nJ7H5uZ3Zvd94NHyN7M7Lsfs7P7dvdAURRFURTFcAgoadDIgfHUNItAVYNGDownlYrbyaJSaSOpZV1bsdfRsgupY610LADGh0p1jEr1gEr1gEr1gEr1gEr1gEr1gEr1QK6k7qI9yI3UHmAB2J11InmSOhPlcj/rRPIitV/cGTqdcT7BS+0G3gupH4HtGeYUvNRyzH3MyQxzClrqUeB3jNQV4HhGeQUrtQN4ZeXwE7gA/LC2vQU6M8gtWKnjYmbejLbfEtuzyC1IqfuA79b+3wFbos82A6+tz5aBAynnF5zUjcATsXaeEm1ORNv/t3kW9UuL4KReEof3VEy7u6LdcIo5BiW1B/hs7fcTsDOm7Q5gyWr7JcUSNiipM2L2nWvQ/rxon1YJG4zUfiHoQZP97mVQwgYhtVuUot+APU327QW+plzCBiF1Usy2Ky32vyr636bgUo+IUvQ5sKnFMczl1FNrDDPeMQoqtaNGKXo44VgHRQn7xmMJ29ZSx2NK0aSkVcKOtetbf31RiWmXouudWZ3ROHYJ29eub/35jhXgJG6QJazvaFupd3DLVNGlLnm4rtyWYv6L6/11yrw1WMXR+tSLH3od5VexvvP8en+dUotZawdmsS4CZes7m+/vHJXqAZXqAZXqAZXqAZWastQk13jlBvvrAkaAx9H14HL09xFwGdia8O2WRpFbqQPiGVStMDekz9QZQ6VaXG+hfjftrlEAqdPAUEwsNJipAzWEvgBuRIf8BPCyhljzjIs6Qhbq5DQdgtShhGN0iUPerKEXgQ2infl/UNw6/FBjjW1WyFCepY6IcYzQegyK9uZFDBuVyr+zun3IyxkqMZ/PWX0eqlTWzFT7dp1ZO1t9hGIec+tMZTW/ErwbNWz1Mf1VKsnWZdcnmVyfqKoqNV7IKLA3JuYykjpXJ6fREGZqtclIU2orETeGSkWl/kVnKqs5myBKnqWWEuaVqwd/VcdSXaBSUalr0JmKe6p6+KtUJ+iJygMq1bNUV2/9layoivupzfSZEP1c51RJ8zq1iDGrUlGp1aLO1P0e1qxSQGG+v6IoiqIoCmv5A7lbldZDqTIcAAAAAElFTkSuQmCC">
+                                <div class="" style="margin-top:20px;"><span class="">annually powering&nbsp;</span><span id="total_homeuse" class="calc_homeuse" style="font-weight:900;">0</span><span class="">&nbsp;homes</span></div>
+                            </div>
+                        </li>
+                      </ul>
+                    <button class="slide-arrow" id="slide-arrow-next">
+                      &#8250;
+                    </button>
+                    
+                   
+                  </section>
+        
+                <!-- <div>
+                    <canvas id="myChart"></canvas>
+                </div> -->
             </div>
+            
         </total-template>
         <script>
             var sources = [
@@ -236,6 +379,12 @@
                 parent_element.appendChild(
                     template
                 )
+            }
+
+            function addSourceFromOption(value_supplied, label_supplied) {
+                // console.log(`${value_supplied} ${label_supplied}`)
+
+                prepareSourceTiles(value_supplied, sources[value_supplied])
             }
 
             function closeSource(e) {
@@ -292,6 +441,7 @@
                 }
                 // console.log(source_values)
                 updateTotals()
+                // updateChartTotals()
             }
 
             function updateTotals() {
@@ -311,19 +461,63 @@
                     document.getElementById("total_co2").innerHTML = parseFloat(source_totals.CO2).toLocaleString('en-US', {
                     minimumFractionDigits: 1,
                     maximumFractionDigits: 1
-                })
-                    document.getElementById("total_mileage").innerHTML = parseFloat(source_totals.Cars).toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                })
-                    document.getElementById("total_homeuse").innerHTML = parseFloat(source_totals.Homes).toLocaleString('en-US', {
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1
-                })
-                    
-                    
+                    })
+                        document.getElementById("total_mileage").innerHTML = parseFloat(source_totals.Cars).toLocaleString('en-US', {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                    })
+                        document.getElementById("total_homeuse").innerHTML = parseFloat(source_totals.Homes).toLocaleString('en-US', {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1
+                    })
                 }
-                console.log(source_totals)
+
+                
+                // console.log(source_totals)
+            }
+
+            function updateChartTotals() {
+                function removeData(chart) {
+                    chart.data.labels = []
+                    chart.data.datasets.forEach((dataset) => {
+                        dataset.data.pop();
+                    })
+                    chart.update()
+                }
+                function addData(chart, labels, datalabels, data) {
+                    chart.data.datasets = []
+                    chart.data.labels = labels
+                    data.forEach((dataset, i) => {
+                        instance = {
+                            label: datalabels[i],
+                            data: dataset
+                        }
+                        // dataset.label = datalabels[i]
+                        chart.data.datasets.push(instance)
+                    });
+                    chart.update();
+                }
+                dataseries_co2 = []
+                dataseries_cars = []
+                dataseries_homes = []
+                for (source_name of Object.keys(source_values)) {
+                    dataseries_co2.push( source_values[source_name].CO2)
+                    dataseries_cars.push( source_values[source_name].Cars/10000)
+                    dataseries_homes.push( source_values[source_name].Homes)
+                }
+                
+                datasets = [
+                    dataseries_co2,
+                    dataseries_cars,
+                    dataseries_homes,
+                ]
+                // console.log(datasets)
+                // removeData(mainchart)
+                addData(mainchart,Object.keys(source_values),['CO2','Mi x10k','Homes'],datasets)
+                // addData(mainchart,'Cars',dataseries_cars)
+                // addData(mainchart,'Homes',dataseries_homes)
+                
+                
             }
 
             function makeDollarsAndCents(amount) {
@@ -356,40 +550,106 @@
                 
             }
 
-            addTotaler(document.getElementById('totaler'))
-
-            for (let [i,source] of sources.entries()) {
-                var element = document.createElement("div");
-                element.className = 'calcTextButton'
-                var handlerForEventClick  = (e) => {
-                    hideAllSources()
-                    if (sources_added.indexOf(source.name)<0) {
-                        addSource(document.getElementById('container'),i,source.value)
-                        sources_added.push(source.name)
-                        document.getElementById(source.name).querySelector('#calcSlider').value=0
-                        updateCalc(sources[i].name, i)
-                        updateTotals()
-                    }
-                    else {
-                        closed_sources.pop(source.name)
-                        document.getElementById(source.name).style.display = "block"
-                        updateCalc(sources[i].name, i)
-                        updateTotals()
-                    }
-                };
-                element.addEventListener("click",handlerForEventClick);
-                element.innerHTML = `${source.name}`;
+            function createSourceOptions(){
+                var parent = document.getElementById("source_select");
+                for (let [i,source] of sources.entries()) { 
+                    var option = document.createElement("option");
+                    option.value = i;
+                    option.text = source.name;
+                    parent.appendChild(option);
+                }
                 
-                document.getElementById('selectors').appendChild(element)
-                // document.getElementById('container').appendChild(element)
             }
-            document.body.appendChild(document.createElement('br'))
-            
-                // updateCalc(element.id, element.getAttribute('source_id')) 
 
+            function prepareSourceTiles(i, source) {
+                hideAllSources()
+                if (sources_added.indexOf(source.name)<0) {
+                    addSource(document.getElementById('container'),i,source.value)
+                    sources_added.push(source.name)
+                    document.getElementById(source.name).querySelector('#calcSlider').value=0
+                    updateCalc(sources[i].name, i)
+                    updateTotals()
+                }
+                else {
+                    closed_sources.pop(source.name)
+                    document.getElementById(source.name).style.display = "block"
+                    updateCalc(sources[i].name, i)
+                    updateTotals()
+                }
+            }
+          
+            function createSourceButtons() {
+                for (let [i,source] of sources.entries()) {
+                    var element = document.createElement("div");
+                    element.className = 'calcTextButton'
+                    var handlerForEventClick  = (e) => {
+                        prepareSourceTiles(i, source)
+                    };
+                    element.addEventListener("click",handlerForEventClick);
+                    element.innerHTML = `${source.name}`;
+                    
+                    document.getElementById('selectors').appendChild(element)
+                    // document.getElementById('container').appendChild(element)
+                }
+            }
+
+            function createSlidingContainer(){
+                const slidesContainer = document.getElementById("slides-container");
+                const slide = document.querySelector(".slide");
+                const prevButton = document.getElementById("slide-arrow-prev");
+                const nextButton = document.getElementById("slide-arrow-next");
+                nextButton.addEventListener("click", (event) => {
+                    const slideWidth = slide.clientWidth;
+                    slidesContainer.scrollLeft += slideWidth;
+                    if(slidesContainer.scrollLeft >= slideWidth) {
+                        slidesContainer.scrollLeft -= slideWidth;
+                    }
+                });
+                prevButton.addEventListener("click", () => {
+                    const slideWidth = slide.clientWidth;
+                    slidesContainer.scrollLeft -= slideWidth;
+                    // console.log(slidesContainer.scrollLeft )
+                    // console.log(slideWidth)
+                    if(slidesContainer.scrollLeft ==0) {
+                        slidesContainer.scrollLeft += slideWidth;
+                    }
+                });
+            }
+
+            function initialize() {
+                // updateCalc(element.id, element.getAttribute('source_id')) 
+                // const ctx = document.getElementById('myChart');
+                addTotaler(document.getElementById('totaler'))
+                // createSourceButtons()
+                createSourceOptions()
+                createSlidingContainer()
+                
+            }
+            initialize()
+           
             
         </script>
-        
+         <!-- <script>
+            const ctx = document.getElementById('myChart');
+            const mainchart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [''],
+                        datasets: [
+                            {label:''}
+                            
+                        ]
+                    },
+                    options: {
+                        scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                        }
+                    }
+                });
+            
+          </script> -->
        
         
     </body>
