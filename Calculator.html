@@ -69,7 +69,7 @@
 			</div>
 			<br>
 			<div  id="ans">
-				<p class="box-title">Total Carbon Footprint:</p>
+				<p class="box-title">Switching to a Greenbank saves:</p>
 				<span id="total">0</span>
 			</div>
 			<p class="small-pad">Which is Equal to</p>
@@ -134,8 +134,8 @@
 
 		// calculating and outputting co2
 
-		let ton =  Math.trunc(money * (items[index].value) *100) / 100;
-		let response = ton.toString() + " Tons";
+		let ton =  Math.trunc((money * (items[index].value) - (money * greenBank)) *100) / 100;
+		let response = ton.toString() + " Tons of Co2";
 		document.getElementById("total").innerHTML = response.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 		// calculating and outputting milage equivalent
