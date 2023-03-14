@@ -1,0 +1,16 @@
+{
+    "version":"v01",
+    "data":[
+                {"name": "Citigroup", "value": 0.0002051},
+                {"name": "Bank of America", "value": 0.0001514},
+                {"name": "Wells Fargo", "value": 0.0000908},
+                {"name": "Goldman Sachs", "value": 0.0001859},
+                {"name": "JP Morgan Chase", "value": 0.0001344},
+                {"name": "Morgan Stanley", "value": 0.0001322},
+                {"name": "Amalgamated", "value": 0.0000127},
+                {"name": "Beneficial State", "value": 0.0000628},
+                {"name": "Sunrise", "value": 0.0000909},
+                {"name": "Clearwater CU", "value": 0.000061},
+                {"name": "Atmos", "value": 0.000011}
+                
+]}

@@ -1,0 +1,12 @@
+{
+    "version":"v00",
+    "data":[
+                {"name": "Citigroup", "value": 0.0002051058093},
+                {"name": "Bank of America", "value": 0.0001513681595},
+                {"name": "Wells Fargo", "value": 0.00009076036226},
+                {"name": "BNY Mellon", "value": 0.00005185854323},
+                {"name": "Goldman Sachs", "value": 0.0001858890973},
+                {"name": "JP Morgan Chase", "value": 0.0001343559671},
+                {"name": "Morgan Stanley", "value": 0.000132219199},
+                {"name": "Amalgamated", "value": 0.00002500}
+]}
