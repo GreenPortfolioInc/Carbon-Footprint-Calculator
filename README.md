@@ -21,6 +21,6 @@ This file contains the iframe embeddable code snippet that can be inserted into 
 Still in development.
 
 ## Calculator Toolkit Links
-Working/Latest Prototype: ​​https://calc.app.metric.systems/ 
+Working/Latest Prototype: ​​https://calc.app.metric.systems/
 Circulation/Template Language (THIS Doc)
-Folder with All Assets: “Pkg for Partners--Cash Carbon Footprint Calculator” 
+Folder with All Assets: “Pkg for Partners--Cash Carbon Footprint Calculator”
