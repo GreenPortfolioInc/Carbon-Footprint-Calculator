@@ -1,0 +1,2088 @@
+<html>
+    <head>
+        <title>Bank Emissions Calculator</title>
+        <meta property="og:url"           content="https://bankfwd.org/" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Where you bank is not climate neutral" />
+        <meta property="og:description"   content="If I move my money out of Wall Street Banks and into a greener bank, I can reduce my carbon footprint by a significant percentage. How many emissions could you save? https://bankfwd.org/toolkit/calculator/" />
+        <meta property="og:image"         content="https://calc.app.metric.systems/images/instagram_share.jpg" />
+        <meta name="twitter:widgets:theme" content="dark">
+        <meta name="twitter:widgets:csp"   content="on">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base target="_blank">
+        
+        <style>
+            html {
+                    /* display:inline-flex; */
+                    justify-content:center;
+                    width: 100vw;
+                    max-height: 60vh;
+            }
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 300;
+                src: url(https://fonts.gstatic.com/s/roboto/v19/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2) format('woff2');
+                unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+                }
+            @font-face {
+                font-family: 'Lato';
+                font-style: light;
+                font-weight: 100;
+                src: url(https://fonts.gstatic.com/s/lato/v14/8qcEw_nrk_5HEcCpYdJu8BTbgVql8nDJpwnrE27mub0.woff2) format('woff2');
+                unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+                }
+            /* nunito-sans-200 - latin */
+            @font-face {
+                font-family: 'Nunito Sans';
+                font-style: normal;
+                font-weight: 200;
+                src: url('./fonts/nunito-sans-v12-latin-200.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* nunito-sans-regular - latin */
+            @font-face {
+                font-family: 'Nunito Sans';
+                font-style: normal;
+                font-weight: 400;
+                src: url('./fonts/nunito-sans-v12-latin-regular.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* nunito-sans-600 - latin */
+            @font-face {
+                font-family: 'Nunito Sans';
+                font-style: normal;
+                font-weight: 600;
+                src: url('./fonts/nunito-sans-v12-latin-600.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* nunito-sans-900 - latin */
+            @font-face {
+                font-family: 'Nunito Sans';
+                font-style: normal;
+                font-weight: 900;
+                src: url('./fonts/nunito-sans-v12-latin-900.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* arimo-regular - latin */
+            @font-face {
+                font-family: 'Arimo';
+                font-style: normal;
+                font-weight: 400;
+                src: url('./fonts/arimo-v27-latin-regular.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* arimo-500 - latin */
+            @font-face {
+                font-family: 'Arimo';
+                font-style: normal;
+                font-weight: 500;
+                src: url('./fonts/arimo-v27-latin-500.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* arimo-600 - latin */
+            @font-face {
+                font-family: 'Arimo';
+                font-style: normal;
+                font-weight: 600;
+                src: url('./fonts/arimo-v27-latin-600.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            /* arimo-700 - latin */
+            @font-face {
+                font-family: 'Arimo';
+                font-style: normal;
+                font-weight: 700;
+                src: url('./fonts/arimo-v27-latin-700.woff2') format('woff2'); /* Super Modern Browsers */
+            }
+            body {
+                /* margin: 0; */
+                /* min-height: 100%; */
+                background-color: #0d3556;
+                /* background-image: url(https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png); */
+                font-family: 'Arimo', sans-serif;
+                font-weight: 400;
+                color: #ffffff;
+                max-width: 100%;
+                overflow-x: hidden;
+                /* font-size: 16px; */
+                /* margin: 1em; */
+                /* display:flex; */
+                /* align-self: center; */
+            }
+            
+            .italics {
+                font-style: italic;
+            }
+            .calcContainer {
+                        text-align: left;
+                        max-width: 375px;
+                        margin-bottom: 80px;
+                        overflow: hidden;
+                        color: black;
+                        margin-top: 40px;
+            }
+
+            .calcSlider {
+                -webkit-appearance: none;
+                width: 190%;
+                height: 10px;
+                background-color: gray;
+                color: #98d080;
+                z-index: 0;
+                margin-top:10px;
+            }
+
+            .calcSlider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 30px;
+                height: 25px;
+                background: #98d080;
+                cursor: pointer;
+                z-index: 10;
+                border-width: 0px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            .calcSlider::-moz-range-thumb {
+                width: 30px;
+                height: 25px;
+                background: #98d080;
+                cursor: pointer;
+                z-index: 10;
+                border-width: 0px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            
+            .calcText {
+                font-weight: 100;
+                color: #ffffff;
+                margin-top: 0px;
+                font-size:40px;
+                margin-block-start: 0em;
+                margin-block-end: 0em;
+                /* line-height:40px;  */
+            }
+
+            
+            h4.calcText, h5.calcText {
+                margin-block-start: -0.80em;
+                margin-block-end: 0em;
+            }
+
+            .calcSpan,.calc_current {
+                color: #ffffff;
+                font-size: 150%;
+                font-weight:700;
+            }
+            .calcBankname {
+                font-size: 120%;
+                font-weight: 900;
+            }
+            .calc_co2,.calc_mileage,.calc_homeuse,.calc_flights {
+                /* line-height:0.2em;  */
+                /* font-size: 80%; */
+                
+            }
+            .calcIcon {
+                position:relative;
+                top: 15px;
+                scale: 50%;
+            }
+            .calcTextButton {
+                border: solid 1px gray;
+                padding: 0.1em;
+                border-radius: 0.2em;
+                box-shadow: 0.2em 0.2em;
+                margin: 0.4em;
+            }
+            .decider {
+                /* border:solid 0.25px gray; */
+                border-radius: 4px;
+                padding: 4px;
+                color:gray;
+                
+            }
+            .decider.green,.green {
+                color: #c9e3ba
+            }
+            .decider.highlight,.highlight {
+                color: #98d080
+            }
+            .decider.lowlight,.lowlight {
+                color: #48d040
+            }
+            .carboned {
+                color: #ff2020
+            }
+            .exhausted {
+                display: inline-flex;
+                transform: scale(0.5, 0.5);
+            }
+            .pinned {
+                font-weight:200;
+                font-size: 540%;
+                text-align:center;
+                margin:auto;
+            }
+            .punched {
+                font-weight:700;
+                font-size: 240%;
+                text-align:center;
+                margin:auto;
+            }
+            .popped {
+                font-weight:700;
+                font-size: 180%;
+                text-align:center;
+                margin:auto;
+            }
+            .clamped {
+                font-size: clamp(4rem, 4vw, 4rem);
+            }
+            .footnote {
+                font-size: 50%;
+            }
+            .reduce50 {
+                font-size: 50%;
+            }
+            .reduce80 {
+                font-size: 80%;
+            }
+            .reduced {
+                font-size: 30%;
+            }
+            .morereduced {
+                font-size: 20%;
+            }
+            .section {
+                align-self: center;
+                /* margin: 0.2em; */
+                /* max-width: 90%; */
+                /* background: #ffda6a; */
+                /* border: 0.25px solid transparent; */
+                /* padding: 1em; */
+                /* border-radius: 1em; */
+                /* position: absolute; */
+                /* top: 40px;
+                left: 80px; */
+            }
+            .container {
+                /* display: flex; */
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .total_container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                /* flex-wrap:wrap; */
+                /* justify-content: space-evenly; */
+            }
+            .selectors {
+                justify-content: space-between;
+            }
+            #totaler {
+                background-color:#0d3556;
+                
+                
+            }
+            .totaler {
+                display:flex;
+                
+            }
+            .totaler .footnote {
+                font-size: 50%;
+                /* flex-wrap: nowrap; */
+            }
+            .total_section{
+                width: 100%;
+                height: 100%;
+                display:flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                
+            }
+            .centered {
+                align-self: center;
+            }
+            .centerflexed {
+                text-align: center;
+                
+                flex-wrap:wrap;
+                align-content: center;
+            }
+            .automargined {
+                margin: auto;
+            }
+            .flexed {
+                display:flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .columned {
+                flex-direction: column;
+            }
+            .rowed {
+                flex-direction: row;
+            }
+            .spaced {
+                justify-content: space-evenly;
+            }
+            .widespaced {
+                justify-content: space-around;
+            }
+            .margined {
+                margin: 1em;
+            }
+            .lightweight {
+                font-weight: 100;
+            }
+            .decisionButtons {
+                max-width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .lato {
+                font-family: 'Lato webfont';
+            }
+            .justified {
+                text-align:justify;
+                justify-content: center;
+            }
+            .bold {
+                font-weight:700;
+            }
+            .thinner {
+                font-weight: 100;
+            }
+            .slidecardfixed {
+                max-width: 80px;
+            }
+
+            .slider-wrapper {
+                margin: 0.25rem;
+                position: relative;
+                overflow: hidden;
+                
+            }
+            .slides-container {
+                height: 8rem;
+                width: 100%;
+                display: flex;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                scroll-behavior: smooth;
+            }
+            .slide {
+                width: 100;
+                height: 100%;
+                flex: 1 0 100%;
+            }
+            .slidebox {
+                display:flex;
+                flex-direction: column; 
+                justify-content: space-around;
+                align-items: center;
+                
+            }
+            .slide-arrow {
+                position: absolute;
+                display: flex;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                height: 4rem;
+                background-color: lightgray;
+                border: none;
+                width: 2rem;
+                font-size: 3rem;
+                padding: 0;
+                cursor: pointer;
+                opacity: 0.5;
+                transition: opacity 100ms;
+            }
+            .slide-arrow:hover,
+            .slide-arrow:focus {
+                opacity: 1;
+            }
+            #slide-arrow-prev {
+                left: 0;
+                padding-left: 0.25rem;
+                border-radius: 0 2rem 2rem 0;
+            }
+            #slide-arrow-next {
+                right: 0;
+                padding-left: 0.75rem;
+                border-radius: 2rem 0 0 2rem;
+            }
+            .hidden {
+                display:none;
+            }
+            .selectPill {
+                border:none;
+                padding: 4px;
+                color:#fff;
+                background-color: #405173;
+                font-size: 130%;
+                border-radius: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .selectMaxPill {
+                border:none;
+                padding: 2px;
+                
+                color: #fff;
+                background-color: #405173;
+                border-radius: 6px;
+                padding-left: 2px;
+                padding-right: 2px;
+            }
+            .pledgeFlipPill {
+                align-self: center;
+                border:none;
+                padding: 4px;
+                color: #d9d9d9;
+                background-color: #405173;
+                border-radius: 20px;
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            .pledgePill {
+                align-self: center;
+                border:none;
+                padding: 14px;
+                color: #d9d9d9;
+                background-color: #405173;
+                border-radius: 20px;
+                padding-left: 40px;
+                padding-right: 40px;
+                font-weight:700;
+            }
+            .flexcol {
+                flex-direction: column;
+            }
+
+            .card {
+                perspective: 700px;
+                position: relative;
+            }
+            .card.is-switched .card_wrapper {
+                -webkit-animation: rotate 0.05s linear both;
+                animation: rotate 0.05s linear both;
+            }
+
+            .card_wrapper {
+                transform-style: preserve-3d;
+                -webkit-animation: rotate-inverse 0.15s linear both;
+                animation: rotate-inverse 0.15s linear both;
+            }
+
+            .card_side {
+                -webkit-perspective: 0;
+                -webkit-transform: translate3d(0,0,0);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+            .card_side.is-active {
+                /* position: static; */
+            }
+
+            .card_side_back {
+                transform: rotateY(180deg);
+            }
+
+            @-webkit-keyframes rotate {
+                0% {
+                    transform: rotateY(0);
+                }
+                70% {
+                    transform: rotateY(200deg);
+                }
+                100% {
+                    transform: rotateY(180deg);
+                }
+            }
+
+            @keyframes rotate {
+                0% {
+                    transform: rotateY(0);
+                }
+                70% {
+                    transform: rotateY(200deg);
+                }
+                100% {
+                    transform: rotateY(180deg);
+                }
+            }
+            @-webkit-keyframes rotate-inverse {
+                0% {
+                    transform: rotateY(180deg);
+                }
+                70% {
+                    transform: rotateY(-20deg);
+                }
+                100% {
+                    transform: rotateY(0);
+                }
+            }
+            @keyframes rotate-inverse {
+                0% {
+                    transform: rotateY(180deg);
+                }
+                70% {
+                    transform: rotateY(-20deg);
+                }
+                100% {
+                    transform: rotateY(0);
+                }
+            }
+            * {
+                box-sizing: border-box;
+            }
+
+            /* .card { */
+                /* margin: 2rem auto; */
+                /* max-width: 350px; */
+            /* } */
+
+            /* .card_side { */
+                /* border: 0.25px solid grey; */
+                /* padding: 1em; */
+                /* border-radius: 5px; */
+                /* color: white; */
+                /* background-color: #ff4136; */
+            /* } */
+
+            .card_side_back {
+                /* background-color: #0074d9; */
+                border-radius:2em;
+                background-color: #0D355622;
+            }
+            .chart {
+                padding: 1em;
+            }
+
+            #chartdiv {
+                width: 100%;
+                height: 340px;
+                margin-left:-50px;
+            }
+
+            .bgcolor_prussianblue {
+                background-color: #0D3556
+            }
+            .bgcolor_pistachio {
+                background-color:#98d080
+            }
+            .bgcolor_teagreen {
+                background-color:#c9e3ba;
+            }
+            .bgcolor_white {
+                background-color:#ffffff;
+            }
+            .bgcolor_black {
+                background-color:#000000;
+            }
+            .borderpin {
+                position:fixed;
+                top:6px;
+                right: -10px;
+                border: 0px solid #fff;
+                border-radius: 0.6em;
+                align-items: center;
+                text-align:center;
+                font-size: 16px;
+                padding-left: 5px;
+                padding-right: 5px;
+                font-size: 80%;
+            }
+            .smallpin {
+                border: 2px solid #fff;
+                border-radius: 0.6em;
+                height: 1.2em;
+                width: 1.2em;
+                font-size: 16px;
+                padding-left: 5px;
+                
+                font-size: 80%;
+            }
+           
+            .campaignpin {
+                display: flex;
+                align-self: center;
+                align-items: center; 
+                text-align: center;
+                vertical-align: center;
+                font-family: 'Nunito Sans';
+                
+                /* background-color: #D9D9D9; */
+                
+                background-image: url('./globe_BUTTON.jpg');
+                
+                background-size: 101%;
+                border-radius: 6em;
+                height: 12em;
+                width: 12em;
+                /* font-size: 150%; */
+            }
+            .actionpin {
+                display: flex;
+                align-self: center;
+                align-items: center; 
+                text-align: center;
+                vertical-align: center;
+                
+                background-color: transparent;
+               
+                max-height: 6em;
+                width: 6em;
+                color: #98d080;
+                
+            }
+            .actionpin img {
+                height:6em;
+            }
+            .actionpin1 {
+                position: fixed;
+                left:0px;
+                display: flex;
+                align-self: center;
+                align-items: center; 
+                text-align: center;
+                vertical-align: center;
+                
+                background-color: transparent;
+               
+                max-height: 1em;
+                width: 1em;
+                color: #98d080;
+                
+            }
+            .actionpin1 img {
+                height:1.5em;
+            }
+            .actionpin2 {
+                
+                align-self: center;
+                align-items: center; 
+                text-align: center;
+                vertical-align: center;
+                
+                background-color: transparent;
+                max-height: 4em;
+                width: 4em;
+                color: #98d080;
+                
+                
+            }
+            .actionpin2 img {
+                height:2em;
+            }
+            .actionpin3 {
+                position:fixed;
+                left:0px;
+                top:10px;
+                align-self: center;
+                align-items: center; 
+                text-align: center;
+                vertical-align: center;
+                
+                background-color: transparent;
+                max-height: 1em;
+                width: 1em;
+                color: #98d080;
+                
+            }
+            .actionpin3 img {
+                height:1.5em;
+            }
+            .lander {
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .fillspace {
+                flex: 3 0 10%;
+            }
+            .floored {
+                position: fixed;
+                align-self:flex-end;
+                bottom: -130px;
+            }
+            .otherfloored {
+                position: fixed;
+                align-self:flex-end;
+                bottom: -64px;
+                align-items: center;
+            }
+            .socialfloor {
+                position: fixed;
+                align-self:center;
+                bottom: -120px;
+            }
+            .footer {
+                margin-top:-4em;
+                display:flex;
+                /* align-self:flex-end; */
+                flex-direction: row;
+                justify-content: space-around;
+                height: 3em;
+                
+            }
+            .guidance {
+                margin-top: 10px;
+                display:flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .guidance .instruction {
+                font-size:80%;
+                font-weight: 900;
+            }
+            .guidance .disclaimer {
+                font-size: 70%;
+                color:lightgray;
+            }
+            .z100 {
+                position:relative;
+                z-index: 100;
+            }
+            .sociallinks {
+                display:flex;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 1em;
+            }
+            .remargined {
+                margin-block-start: 0.2em;
+                margin-block-end: 0.2em;
+            }
+            .lede {
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                font-style: italic;
+                font-weight: 100;
+            }
+            .w100 {
+                width:80vw;
+            }
+            .override-fb-share {
+                display: flex !important;
+                position: fixed !important;
+                bottom: -120px !important;
+                left: auto;
+                align-self: center !important;
+            }
+            .override-tw-share {
+                display: flex !important;
+                position: fixed !important;
+                bottom: -120px !important;
+                left: 10vw;
+                align-self: center !important;
+            }
+            .override-li-share {
+                display: flex !important;
+                position: fixed !important;
+                bottom: -120px !important;
+                right:10vw;
+                align-self: center !important;
+            }
+            .override-ig-prepare {
+                display: flex !important;
+                position: fixed !important;
+                bottom: -120px !important;
+                right:100px;
+                align-self: center !important;
+            }
+            .override-ig-share {
+                display: flex !important;
+                position: fixed !important;
+                bottom: -100px !important;
+                right:100px;
+                align-self: center !important;
+            }
+            .override-ig-photos {
+                display: flex !important;
+                position: fixed !important;
+                bottom: -80px !important;
+                right:100px;
+                align-self: center !important;
+            }
+        </style>
+
+    </head>
+    <body id="maincontent">
+        <div class="hidden" id="hiddenclipboard"></div>
+        <div id="flipcard" class="card js-card">
+            <div class="card_wrapper">
+                <div class="card_side is-active flexed">
+                    <!-- LANDING PAGE BODY w/chart FOLLOWS -->
+                    <div class="flexed columned remargined">
+                        <div class="w100 flexed centered hidden" id="topcontrols">
+                            <div class="actionpin1" >
+                                <div onclick="backToStart()"><img  src="./open_arrow_back.png"/></div>
+                            </div>
+                            <select class="selectPill centered" onchange="(()=> {addSourceFromOption(this.value, this.options[this.selectedIndex].innerHTML);   })()" id="source_select_primary">
+                                <option value="-1">Select primary bank</option>
+                            </select>
+                            
+                            <div class="borderpin" onclick="">refresh to<br/>reset</div>
+                        </div>
+                        <div id="addmore" class="hidden remargined">&uarr; Add more banks</div>
+                        <div id="container" class="container"></div>
+                        <!-- <canvas id="myChart"></canvas> -->
+                        <div id="chartdiv" class="hidden"></div>
+                        <div id="readypillcontainer" class="hidden flexed automargined columned punched">
+                            <div class="flexed rowed">
+                                <div class="flexed columned">
+                                    <div id="total_co2" class="calc_co2  punched clamped">0</div> 
+                                    <div class="centered centerflexed">
+                                        <span class="reduced">mt CO2e/year</span><br/>
+                                        <span class="reduce50">Current Banks' Emissions</span><br/>
+                                        <span class="footnote morereduced">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    </div>
+                                    
+                                </div>
+                                <div>&nbsp;</div>
+                                <div class="flexed columned">
+                                    <div id="total_green_co2" class="calc_green_co2 green punched clamped">0</div>
+                                    <div class="centered centerflexed">
+                                        <span class="reduced">mt CO2e/year</span><br/>
+                                        <span class="reduce50">Greener Banks' Emissions</span><br/>
+                                        <span class="footnote morereduced italics">For The Equivalent Dollar Amount</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="">
+                                <span class="footnote centered hidden">Total Emissions of your $<span id="total_dollars" class="calcDollars">...</span> at a Greener Bank:</span>
+                            </div>   
+                            <div class="actionpin2" onclick="flipCard()">
+                                <img  src="./circle_arrow.png">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="card_side card_side_back  flexed">
+                    <!-- PLEDGE PAGE BODY FOLLOWS -->
+                    <div class="actionpin3" >
+                        <div onclick="flipCard()"><img  src="./open_arrow_back.png"/></div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                    </div>
+                    <!-- <div class="lede">A Summary of the Carbon Footprint<br/> of Your Banking:</div> -->
+                    <div id="totaler" class=""></div>
+                   
+                    <div id="selectors" class="container selectors"></div>
+                    <!-- <div class="override-ig-photos" onclick="shareBlobDataToPhotos()">Photos</div> -->
+                    <!-- <div class="override-ig-share" onclick="shareBlobDataToClipboard()">Share</div> -->
+                    <!-- <div class="override-ig-prepare" onclick="getScreenShotFile()">Capture</div> -->
+                    
+
+                    <div class="fb-share-button override-fb-share" 
+                        data-href="https://bankfwd.org/toolkit/calculator/" 
+                        data-layout="button">
+                    </div>
+                    <div id="twitter-wrapper" class="override-tw-share"></div>
+                    <div id="linkedin-wrapper" class="override-li-share">
+                        <script type="IN/Share" data-url="https://bankfwd.org/toolkit/calculator/"></script>
+                    </div>
+                    
+                    
+                    <!-- <div class="sociallinks">
+                        <div>&#xF1C6; Share This</div>
+                        
+                    </div>
+                     -->
+                   
+                </div>
+                
+            </div>
+            
+           
+            
+        </div>
+
+        <!-- <div onclick="addSource(document.body,document.getElementById('source_select').value)">Addsource</div> -->
+
+        <!--  TEMPLATES FOLLOW  -->
+
+        <!--  LANDING TEMPLATE  -->
+        <lander-template style="display:none; " class="section lander">
+            
+                <div class="campaignpin" ><a href="https://thirdact.org/act/bank-on-our-future-pledge/" class="popped" style="text-decoration: none;"><span  style="padding-top:10px; color: #FFFFFF;">I'M READY<br/>TO BANK<br/>GREEN</span></a></div>
+            
+            <div  class="flexed columned fillspace margined">
+                &nbsp;&nbsp;
+                <div class="flexed columned punched" style="font-family: 'Nunito Sans';font-size:290%;text-align: center;color:#C9E3BA;">CHOOSE A BANK THAT BANKS ON THE CLIMATE </div> 
+                &nbsp;
+                <div class="flexed columned punched" style="font-family: 'Nunito Sans';font-size:260%;text-align: center;color:#C9E3BA;"><span class="" style="color:#FFFFFF;">DOES YOURS?</span></div>
+            </div>
+            &nbsp;
+            <div class="actionpin" onclick="(()=> {addSourceFromOption(0, 'select');})()">
+                <img  src="./circle_arrow.png">
+            </div>
+            <div class="flexed column fillspace floored">
+                <div class="footer">
+                    <img  src="logo_GP.svg" width="30%" style="margin-left:18px;scale:130%;">
+                    <img  src="logo_BFWD.svg" width="30%" style="margin-left:68px;scale:160%;">
+                    <img  src="logo_TOPO.svg" width="20%" style="scale:80%;">
+                </div>
+            </div>
+        </lander-template>
+        <!--  LANDING TEMPLATE  END -->
+
+        <!--  SLIDER SELECTION TEMPLATE  -->
+        <slider-template style="display:none;flex-direction:column;" class="section">
+           
+            <div class="flexed columned">
+                <!-- <span class="decider highlight"></span> -->
+                <div class="flexed columned">
+                    <span class="decider highlight"></span>
+                </div>
+               
+                <select class="selectPill centered hidden" onchange="(()=> {addSourceFromOption(this.value, this.options[this.selectedIndex].innerHTML); unsetSelection(this)})()" id="source_select_secondary">
+                    <option value="-1">Select secondary bank</option>
+                </select>
+                <div class="flexed columned">
+                    <span class="decider highlight"></span>
+                </div>
+                
+            </div>
+            <br/>
+            <div class="centered z100 flexed columned hidden">
+                <span class="calcSpan calcBankname decider highlight" id="current_name">at ...</span>
+                <!-- <span onclick="closeSource(this);" class="decider ">&#8592; Remove</span> -->
+            </div>
+
+            <div class=" flexed centered rowed">
+                <div class="instruction">Input a dollar amount</div>
+                <div>&nbsp;</div>
+                <div class="smallpin" onclick="alert('Your data is anonymous and not stored or sold anywhere')">i</div>
+                <span class="disclaimer italics hidden">Your data is anonymous and not stored or sold anywhere</span>
+            </div>
+            <div  class="w100">
+                <input oninput="updateSliderTileCalc(this.parentNode.parentNode.id, this.parentNode.parentNode.getAttribute('source_id'))" type="range" max="250000" step="1000" id="calcSlider" class="calcSlider" value="0" style="width: 100%; min-height: 1px !important">
+                <div style="display: flex; justify-content: space-between; margin-top: 1em">
+                    <span class="calcSpan reduce80">$0</span>
+                    <span class="calcSpan"></span>
+                    
+                    <span class="calcSpan"></span>
+                    <span class="calcSpan"><select class="selectMaxPill" style="margin-top:1px;" onchange="((e)=> {updateSliderFromOption(this, this.value, this.options[this.selectedIndex].innerHTML);})()" id="slider_select_max">
+                        
+                    </select></span>
+                </div>
+                <div class="flexed centered columned">
+                    <span id="calc_current" class="calc_current green">$0</span>
+                </div>
+            </div>
+        </slider-template>
+        <!--  SLIDER SELECTION TEMPLATE END -->
+        <!--  SUMMARY TOTAL PLEDGE TEMPLATE  -->
+        <total-template style="display:none;" class="totaler">
+            <div class="total_container">
+                <div class="total_section">
+                    <div class="slidebox">
+                        <!-- <div class="carboned exhausted">&#9729;</div> -->
+                        <!-- HIDDEN -->
+                        
+                        
+                        
+                        <div class="campaignpin"><a href="https://thirdact.org/act/bank-on-our-future-pledge/" class="popped" style="text-decoration: none;"><span  style="padding-top:10px; color: #FFFFFF;">I'M READY<br/>TO BANK<br/>GREEN</span></a></div>
+                        
+                        <div class="container flexed margined hidden">
+                            <div class="centerflexed lato pledgeFlipPill" onclick="flipCard();">&#8617; Go Back to Calculator</div>
+                        </div>
+                        <!-- HIDDEN END-->
+
+                        
+                        <div class="flexed columned centered">
+                            <div class="centerflexed justified thinner margined">You could reduce your<br/>annual carbon footprint</div>
+                        </div>
+                        <div class="calcText flexed columned centered">
+                            <div  class="calc_savings_percentage_co2 highlight punched" ><span class="highlight">&#8595;</span><span id="savings_percentage_co2">0</span>%</div>
+                         </div>
+                         <span class="centered">which is equal to</span>
+                        <div class="calcText flexed columned centered">
+                            <div class="calc_savings_co2 highlight popped reduce80"><span class="highlight">&#8595;</span><span id="savings_co2">0</span></div>
+                            <div class="footnote centered reduce50 ">mt CO2e/year</div>
+                            <div class="margined"><span class="centered highlight margined">OR</span></div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="flexed rowed widespaced">
+                    <div class="slidebox slidecardfixed">
+                        <img  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEyklEQVR4nO2abYweUxSA7xbVVgXVro+m+hFK+SENP4Q0EklVBY2UEJEKmhYpbdOQiEgJwg+tRIKSaix+0KaUpkXWiqQpxUaqRGkE1aCoUp/94pHjPTd7jDvvzOw78+529z7JZN+d+3XOmXPvPXPuOBeJRCKRSCQSiUQiBQEOBcYDZ5R8nQIMdr0VYCKwEthLdUjfL4tBXG8CuB7YQ/PYB9zoegPAZGC/CiZ/nxPhgMszrseNQvNy1J8NPGvG+huY3tPKDwA+VoHEA84v0HaWMcCEAu3OBX7TdjuA411PAVxqlLg3UD64UQOE+gBmmravAC2uJwDeUSF+B0aY+1OAT7TsG+CaIgYADgHuB35SV18nO0uizmrT/gbXbIDzjAAPm/unAbsDC9eUAgZYGGj/JTDE1DkW+F7LZEqc1CTVawDtZmsabe7fR5g2XyeHAbam9PGfNQaYZsreAg5yzQA4s45ij6UIv6aAAX5N6ePKgCxtpvyOCtXuAlihA8r8PDWwLcr9JNcVMMBTgfY7gVZbT+seYTxGdqKJrkqAk4G/dMBVgfIW4PWE8JuBgwsYYEwgsLorYz3yMn0EDCpZ7S6ApUaoswLlz6S4b4es7lkGAE4Avgq0FwVnJ8cz7R4ydRe5MgFagUs0wttjtrdZietB6rPM1LWGWmjuy5aXxp/ALYFx5Zprdh8x1tXAsEYVH63z3bvXgYisDy8Bd2vgNjav8qebfbavIQHWmzptptmp+S/AYRp4eF4FLtB38nEHwCXB2BXAAyr79hxe0hVjALeZwkU9FmuXCHAcMBW4HVgObElMbXnLvMxXfk9vfi4ZHtdH0XD6Ts0vCL8Ao5z+EJa6fgAww3q8M/8sdv0ADd42qc6b+50BEgHe7v5qgMVeaVfUAMBAYKSGsdXF4TkRGVSWkf/b48s0ALX83CqTo0ND5Q6NulqaPI+nA28kXqREtheBSaUZgNoTf4Js1gBHVaZ1lzzDNDeYxZI0j8htAGqWXpl44s8DCzS9/SSwy5S/a1NZFSgvUWunGW+XyjBPZVqe8IgVIc8sYoA5pvx9CT0DdYYDa0M5wwoM8EjC444O1DkR2Gjq3dQtA1BbXLab+Hl4xhnhBpM3HFWi3vZtda/JCQ6sU3cEsE3rfptcrJMG+Fl/t1t3AS40xpmZQ8BJpv78EnRO9i8u7jknR32bhJmaksXamczJfaqGaNcXCE9rjgFb9PRG+Nr0U9YlfQo/5NlxgGOM/FtMP6KjZ5mfw5+Rzr6cD0n6+pDq2VRAHv/iE0J0rq0hwFA57tIUVadefg5Rb/4nPECeDvq3s+TL9/1dTg+Q1J5nm+lHdLxHdHYZHVxsOrg2x4Bnm/oLXMkAt9ZL0KYc43su6s6AQ4zVv6gX5Oj53nqtK243pvCA2fKMM8fl6+qFvRosbTUe072vTYD5xoobQtubGEZDZM+Sbg2WTx4bkb4AHJmyXUpA5pnb6DcBq01nf+jx1Bz9iOFR4EdTvjFzbjUAcDjwgRlvh8ogstwMPK0yeiRDPKDRQQfVOQCxdNhj86rQIEdegrJoKzXFR+07gNcSx+H7NSq7qmFLF/dMOQx526wLqGySGZ7cjE/jJlTp7gXkGaqyjO/LSd1IJBKJRCKRSCTiSuUfPTMsDcoYUcgAAAAASUVORK5CYII=">
+                        <div class="" style="margin-top:20px;"><span id="total_mileage" class="calc_mileage green" style="font-weight:700;">0</span><span class="green">&nbsp;fewer miles driven</span></div>
+                    </div>
+            
+                    <div class="slidebox slidecardfixed">
+                        <img  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFjklEQVR4nOWbe4hVVRTGd9ZoiQ/wgTY5SoWOYZE6RNoIyWgvKouy7GFvUiJIsNCshN7gq6K/jJ4qRZgk9pgiqcGxScrCQq0oLcPS7F2CY1n+YjHfzOy5nHvvuefsmTnjfHD+mLP3/tZa55y71tprr3GuAwBcBXwFHKY4/gReBga7rgpgM6XjA+Ao1xUBnAicDRwdc+4eGT3ZdQcAD8vg5a47ADhNBv8MlLmsAxgJTAGmAhOBPgk4tsno811WAfQF3o5wQH8AM0rkWqi1z7efxjEBDAEWy7j1wCLgMmCDlPwNeFdjW3TvIHBSCTJGad3vQC/XWQD6AzsLhJMfcg0DXtTYYyXK+kTrLgluSFwA86XEp8DFwAV6228CTwDDItaM89587xgyhgLLgF1a962+FrteB+YAPV1HgCZDDReWuG6T1t1cZN5g4DuKY3VqY4oBGO29qZKeMHC91m4uMm+B5n0MXCRP71/XKv00nOnaE8A8CXo2wdpjgV+0/owC897QnMsLzDEnaXjStSeAs4A64NSE6+23bniuwJytmlNZYM54zdkbJ13tNAAnA/8BB4ABeeaYI7wzBteXMnqKyzKAt6To3JQ894vnaZdlANOk6A6gR2c40BbY/hO4EVjjxb3Q13teaNmYkuuQeDZFjJkNNxTcUwOPc+RhWT5jB8mhNOrJTO3il32pjbJpYJTBk/RENrojBDT9ZAyTogYna7DOHSGgKWeILhV1R4MrNbjbNvKui0PFiO9l06ioCT2UsKPkfGfGr+1Alad/GfCON968wfgob2gCRihOmmfLOg77hQEzPmfcbLCqy/A4n0M/q1oAtVo8R39n6Rqao/MM6Vqr8X5pdjf3uIwDuE+6LkpDMqvYdi4rAF6QrremIanpKskI8H7q4xmgQiR7UypjEaC6QBpYnWbnJBk/SteKtIoeEFHi2AzcFsPrzk4Zc5Gu6U4caS25jEt5VlRbYJtnJd4xKfiby8Bbk3K0AFgrsitcRgFcKR1fDUG2RGQLXEYB3CsdF4cgm520NNtRsAM36TgrBFmNyOpLWFMeIJMqL0FevXSsSWxoMywXFdkeFwPATMLhmpgyrT5NrLw5ZmhqVLJe9GBblZMvAuyGPrfCfwx5faRbY9pY3gJtxQynu4zBC0nbQpKuE+l0lzFYuJRua0OSLhXp3S5jsJ2cdFsSknS6SO9wGYOFy7SpaSSAE7LYGef1lWT7UC0UvK694aGJ+wJ3AQ062D6o8PFMnPARQH61ZFnfx34dotUFD0kG4DxgX4EEwYSuAo5zgWGcwMoinbjbQwq8FPhXxPU67hxovVO2pQMe1BM3bAgmuLVNojlt/At4ADhFsgdIl9WW3YUSWOEZ80g+p6Umsq/1ufVoh3C4K7KYHhrAUxL4Soy5Pe2NBJRdrvNfu8bGTIGtT+yWpALL5BjIfbqWYupTL9pklhTW5yHZL0XoZe1MEyOOe5FDLT180nrWtCPn/tWeA9nitxvIwaxKcaJvLUsjxbVCMmbm6RExzMsZa25oG5W0RcnQkHP/NdpivDdmLcNBtoReV+65Hr85Sx+f5ej2oe5XhXzDCz2B9vn098Zu0v31CU/tJzR/jvYpi+u6nN+pOUeiOni83szKJAYfA/yaS6D7t6sfpE2DmkJE6pYkcc3N8xseoSOg+b4PMV00f1/iFBhYLpI1MeZWKV4fKqU8U6TS8rc4x8boPlqXuh0RGKaAb3i0QBwe7TmMpYkF5u8q2pXvM7XWQ6+yamfCQ9IKneb1QzUoHA1StmOf0UN+phU4FvfyGlP2S9YY3T/eGlClk+EfS4FDCT7HK5Tlw4ok/8wRQ3ZvhbpC2B2kYunaCrZimTkSe+I/abf0jTbgE4IKi5ZvYdJk2Q7NZNu20PJsc6CxD7//B2jlPqeSptdqAAAAAElFTkSuQmCC">
+                        <div class="" style="margin-top:20px;"><span id="total_lbscoal" class="calc_lbscoal green" style="font-weight:700;">0</span><span class="green">&nbsp;fewer lbs of coal burned</span></div>
+                    </div>
+            
+                    <div class="slidebox slidecardfixed">
+                        <img  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEAElEQVR4nO3YaYiVZRQH8HdsM80WGRQqSMvBkIpqkBaiBYPK9sX8ENlGRRaVWn1ogYxsLyLCAiki64MWhEYLBpKUFQXZ8qEoWiwrKysmyEqrXzzNufTMy525985M5oX3DwP3fd73/M85z3O2Z4qiQoUKFSpUqFChQrNAJy7D0/gAG7EZX+NFXIGxQ1UyCjsMiaR/7sPD+GR0I/yIC1pVMAH3Yl1G9A2W4tyh7A62wQy8nnEnR57DeZiCbbEz9sP5WJ19e1Gzio7Hpkww/f6jtDtJ8UrMwd5N8o7BVfg04/kBt2OPBrIduD9kvm3WkesyRQ/E7myPfTE7Yva3kmPvYQGmJqUlvj1xJ37Kvv8ouEY3adNx+CxkV7SSEysypa/igDq7exYex4aSU1/hYczEE6XTfRmnYEQLRWBxJv9aS2EdRzkrHWMWSvclB/qJ+aNwT+x0GZvCoYNb0D8a10eCJ/yCuUlX006UCHfDQvyZ7fbMfhTPLjmSjLirUfznSNURV2J9xvMCJhbDgYj9tzLylzAZu+O2SNpBxX/mwKVYWwqjY4oGOXBQSsJ+P6ovNyIMrCXt7/GXx/+pzcZ/dpJzSmX+XZxcDISo3z0h8BcewU4DCvV15CS8WYr/J9HdDEfGtQtuwHcZ19s4s6mNwJch9CF+zX4fOIDMjrgkRoc8/u/AXq04EHzjsiQWzW56uWw3Ivn4H1GORRfWxHNy6vLSt+Mxv7Rrn0QyNnWK/dhwS3CtwdGDJbkpSJ6P55FRlWpYjmlYVGp6q+PYB1f++uZErTAcOhSizqjJKT+mZOtnZ7lTQxpLnmpVYUwCU/t5l0aUhFWDdiIjq53AotL6RDwanfzuVmt3DHnzooQurPN+O3weuk8cDke6osGlvBg3DHwToqv3DDSh4px4935LiT0Q8EyQ3jxI+Y4Y5JZnXV/2u7vO9+/Eu1mD0VkXOCJI0yw1sgW5FH43lkaRjdGPuuOUN5c542qQ8EUKsWb1NQW8EeQXN/hucnTfV6JI5KX4mto0iv1roVOHI91dEuYWww295VQ0pzkxwR6GE3B1jM/J2Bw/47Eo0X06cNwcExbXmdNqesb8F450YInGWB/GpxI9agC+NOYnzCutp+txwoJhd6LkzIwwdFWU3mfxIC5MF6oWLkG18JmWrU2KfpRyZ3yxtUPvhtTmp85sPd0UEx4q2gF6e0nC2tJwuDFOpKtoB+D0cGRZtnZrrC0t2gV6p+SE+dlwuGHIw+GWRjqJMPqMeE7lPGFl0U7w7zC4T0zY38fz9KJdgLFhdE/cb5Zld5jhGQ63BHBkGL4uu8+nf1BMKtoJOK00CSSHDinaDdg1TiJNxNemC9b/bVOFChUqFFsV/gaScobPJXj4jAAAAABJRU5ErkJggg==">
+                        <div class="" style="margin-top:34px;"><span id="total_flights" class="calc_flights green" style="font-weight:700;">0</span><span class="green">&nbsp;&nbsp;&nbsp;fewer NY to LA &nbsp;flights</span></div>
+                    </div>
+                </div>
+
+                <div class="flexed columned fillspace otherfloored">
+                    <div class="footer">
+                        <img  src="logo_GP.svg" width="30%" style="margin-left:10px;scale:120%;"/>
+                        <img  src="logo_BFWD.svg" width="30%" style="margin-left:60px;scale:180%;"/>
+                        <img  src="logo_TOPO.svg" width="20%" style="scale:80%;"/>
+                    </div>
+                </div>
+                
+                <!-- <div class="flexed columned socialfloor">
+                    
+                        <div class="flexed centered lato pledgePill">
+                            <a  style="text-decoration:none;color:#fff;">Share</a>
+                            
+                        </div>
+                    
+                </div> -->
+            </div>
+            
+            
+        </total-template>
+
+       
+        <!--  SUMMARY TOTAL PLEDGE TEMPLATE END -->
+
+        <!--  JAVASCRIPT  -->
+        
+        <script>
+            var flipcard;
+            var mainchart;
+            var secondaryexists = false;
+            var sources = []
+            var sources_green_labels = []
+            var sources_added = []
+            var source_values = {}
+            var source_green_estimates = {}
+            var source_totals = {}
+            var source_green_totals = {}
+            var source_green_deltas = {}
+            var closed_sources = []
+            var chart_data = []
+            var green_multiplier =  0.00005685
+            var clipboard_canvas = undefined
+            var canvas_blobdata = undefined
+
+            function prepareSharingText(footprint_percentage=0.0, metric_tonnage=0.0) {
+                return `If I move my money out of Wall Street Banks and into a greener bank, I can reduce my carbon footprint by ${footprint_percentage}%. That's a total savings of ${metric_tonnage} metric tons of CO2/year. How many emissions could you save?  `
+            }
+
+            function resetData() {
+                console.log("resetting data")
+                sources = []
+                sources_green_labels = []
+                sources_added = []
+                source_values = {}
+                source_green_estimates = {}
+                source_totals = {}
+                source_green_totals = {}
+                source_green_deltas = {}
+                closed_sources = []
+                chart_data = []
+                dom_sliders_array = Array.from(Array(document.getElementsByTagName('slider-template').length).keys())
+                // document.getElementsByTagName('slider-template')[0].remove()
+                // console.log(dom_sliders_array)
+                for (i in dom_sliders_array) {
+                    try {
+                        var element = document.getElementsByTagName('slider-template')[i]
+                        if (element && (element.getAttribute('source_id') && element.getAttribute('source_id')!=='0')) {
+                            resetChildSliderForElement(element)
+                            if (element) {element.remove()}
+                            // console.log(document.getElementsByTagName('slider-template')[i])
+                        }
+                    } catch(e) {
+                        // console.log(document.getElementsByTagName('slider-template')[i])
+                        // console.log(e)
+                    }
+                }
+                updateTotals()
+                updateAmchartTotals(source_values, source_green_estimates)
+                updateTotalsDOM(source_totals,source_green_totals)
+                // backToStart()
+                
+                reinitialize()
+                
+              
+            }
+
+            function getHeadMetaAt(index) {
+                return document.getRootNode().querySelectorAll('head meta')[index]
+            }
+
+            function getSliderTemplate() {
+                var sliders_array = Array.from(Array(document.getElementsByTagName('slider-template').length).keys())
+                for (i in sliders_array) {
+                    try {
+                        var element = document.getElementsByTagName('slider-template')[i]
+                        if (element && element.getAttribute('source_id')==undefined) {
+                           return element
+                        }
+                    } catch(e) {}
+                }
+            }
+
+            function getTotalTemplate() {
+                var sliders_array = Array.from(Array(document.getElementsByTagName('total-template').length).keys())
+                for (i in sliders_array) {
+                    try {
+                        var element = document.getElementsByTagName('total-template')[i]
+                        if (element && element.getAttribute('source_id')==undefined) {
+                           return element
+                        }
+                    } catch(e) {}
+                }
+            }
+
+            function addSource(parent_element, source_id, multiplier) {
+                template = getSliderTemplate().cloneNode(true)
+                template.style = "display:block";
+                if (template.querySelector("#current_name")) {
+                    template.querySelector("#current_name").innerHTML = `${sources[source_id].name}`
+                }
+                template.id = `${sources[source_id].name}`
+                template.setAttribute('source_id',source_id)
+                parent_element.appendChild(
+                    template
+                )
+                return template
+            }
+
+            function addDisabledSource(parent_element, source_id, multiplier) {
+                template = document.getElementsByTagName('lander-template')[0].cloneNode(true)
+                template.style = "display:flex";
+                if (template.querySelector("#current_name")) {
+                    template.querySelector("#current_name").innerHTML = `${sources[source_id].name}`
+                }
+                template.id = `${sources[source_id].name}`
+                template.setAttribute('source_id',source_id)
+                parent_element.appendChild(
+                    template
+                )
+                return template
+            }
+
+            function addSourceFromOption(value_supplied, label_supplied) {
+                // Ignore selection of separator line or default selection by testing for value_supplied == -1
+                // if (value_supplied == -1) {
+                //     return
+                // }
+                for (i in Array.from(Array(document.getElementsByTagName('slider-template').length).keys())) {
+                    try {
+                        document.getElementsByTagName('slider-template')[i].style.display="none"
+                        // console.log(document.getElementsByTagName('slider-template')[i])
+                    } catch(e) {
+                        // console.log(e)
+                    }
+                }
+                document.getElementsByTagName('lander-template')[0].style.display = "none"
+                if (document.getElementsByTagName('slider-template')[0]) {
+                    document.getElementsByTagName('slider-template')[0].style.display = "none"
+                }
+                document.getElementById('topcontrols').classList.remove('hidden')
+                document.getElementById('addmore').classList.remove('hidden')
+                document.getElementById('readypillcontainer').classList.remove('hidden')
+                prepareSourceTiles(value_supplied, sources[value_supplied])
+            }
+
+            function backToStart() {
+                for (i in Array.from({length: sources.length}, (_, i) => i + 1)) {
+                    try {
+                        document.getElementsByTagName('slider-template')[i].style.display = "none"
+                    } catch(e) {
+
+                    }
+                }
+                try{
+                    document.getElementsByTagName('slider-template')[1].remove()
+                } catch(e) {}
+                unsetSelection(document.getElementById('source_select_primary'))
+                document.getElementsByTagName('lander-template')[0].style.display = "flex"
+                document.getElementById('chartdiv').classList.add('hidden')
+                // document.getElementsByTagName('slider-template')[0].style.display = "none"
+                document.getElementById('topcontrols').classList.add('hidden')
+                document.getElementById('readypillcontainer').classList.add('hidden')
+                document.getElementById('addmore').classList.add('hidden')
+                // updateSliderTileCalc(sources[0].name, 0)
+                
+            }
+
+            function updateSliderFromOption(element, value_supplied) {
+                element.parentNode.parentNode.parentNode.querySelector('#calcSlider').max=value_supplied
+                // element.parentNode.parentNode.parentNode.querySelector('#calc_max').innerHTML=value_supplied
+            }
+
+            function resetChildSliderForElement(element) {
+                // console.log(element)
+                element.parentNode.querySelector('#calcSlider').value=0
+                element.parentNode.querySelector('#calc_current').value='$0'
+            }
+
+            function unsetSelection(element) {
+                element.selectedIndex = 0
+            }
+
+            function closeSource(e) {
+                hideAllSources()
+                e.parentNode.parentNode.querySelector('#calcSlider').value=0
+                source_value_name = e.parentNode.parentNode.id
+                delete source_values[source_value_name]
+                updateTotals()
+                updateAmchartTotals(source_values, source_green_estimates)
+                if (Object.keys(source_values).length <1) {
+                    // flipCard()
+                    document.getElementsByTagName('lander-template')[0].style.display = "flex"
+                    document.getElementsByTagName('slider-template')[0].style.display = "none"
+                    document.getElementById('chartdiv').classList.add('hidden')
+                    document.getElementById('readypill').classList.add('hidden')
+                } else {
+                    document.getElementById(Object.keys(source_values)[0]).style.display = "block"
+                    document.getElementById('chartdiv').classList.remove('hidden')
+                    
+                }
+
+            }
+            function hideSource(e) {
+                document.getElementById(e.parentNode.parentNode.id).style.display = "none"
+            }
+
+            function hideAllSources() {
+                document.getElementById(' ').style.display = "none";
+                for (source_name of Object.keys(source_values)) {
+                    if (document.getElementById(source_name)) {
+                        document.getElementById(source_name).style.display = "none";
+                    }
+                }
+            }
+            function showSource(e) {
+                document.getElementById(e.parentNode.parentNode.id).style.display = "block"
+            }
+
+            function addTotaler(parent_element) {
+                template = getTotalTemplate().cloneNode(true)
+                template.style = "display:block";
+                template.id = 'totaler'
+                parent_element.appendChild(
+                    template
+                )
+            }
+
+            function updateSliderTileCalc(id, source_id) {
+                if (source_id !== 0) {
+                    multiplier = sources[parseInt(source_id)].value
+                    source_name = sources[parseInt(source_id)].name
+                    var x = document.getElementById(id).getElementsByClassName("calcSlider")[0].value;
+                    document.getElementById(id).getElementsByClassName("calc_current")[0].innerHTML = makeDollarsAndCents(x);
+                    // updateTotalsForSliderTileDOM(x, multiplier)
+                    source_values[source_name] = {
+                        'Dollars': parseFloat(x)
+                        ,'CO2': makeCO2(x,multiplier)
+                        ,'Cars':makeCars(makeCO2(x,multiplier))
+                        ,'Coal':makeLbsCoal(makeCO2(x,multiplier))
+                        ,'Homes':makeHomes(makeCO2(x,multiplier))
+                        ,'Flights':makeFlights(makeCO2(x,multiplier))
+                    }
+                    source_green_estimates[source_name] = {
+                        'Dollars': parseFloat(x)
+                        ,'CO2': makeCO2(x,(green_multiplier))
+                        ,'Cars':makeCars(makeCO2(x,green_multiplier))
+                        ,'Coal':makeLbsCoal(makeCO2(x,green_multiplier))
+                        ,'Homes':makeHomes(makeCO2(x,green_multiplier))
+                        ,'Flights':makeFlights(makeCO2(x,green_multiplier))
+                    }
+                }  else {
+                    source_name = sources[parseInt(source_id)].name
+                    source_values[source_name] = {
+                        'Dollars': 0.0
+                        ,'CO2': 0.0
+                        ,'Cars': 0.0
+                        ,'Coal': 0.0
+                        ,'Homes': 0.0
+                        ,'Flights': 0.0
+                    }
+                    source_green_estimates[source_name] = {
+                        'Dollars': 0.0
+                        ,'CO2': 0.0
+                        ,'Cars': 0.0
+                        ,'Coal': 0.0
+                        ,'Homes': 0.0
+                        ,'Flights': 0.0
+                    }
+                    
+                }
+                updateTotals()
+                updateTotalsDOM(source_totals,source_green_totals)
+                updateAmchartTotals(source_values, source_green_estimates)
+
+            }
+
+            function updateTotals() {
+                source_totals = {}
+                source_green_totals = {}
+                source_green_deltas = {}
+                for (source_name of Object.keys(source_values)) {
+                    if (source_name !== ' ' && !closed_sources.indexOf(source_name)>-1) {
+                        for (key of ['Dollars','CO2','Cars','Coal','Homes','Flights']) {
+                            source_totals[key] = (parseFloat(source_totals[key] || 0) + parseFloat(source_values[source_name][key])).toFixed(2)
+                            source_green_totals[key] = (parseFloat(source_green_totals[key] || 0) + parseFloat(source_green_estimates[source_name][key])).toFixed(2)
+                            source_green_deltas[key] = (parseFloat(source_green_deltas[key] || 0) +  (parseFloat(source_values[source_name][key]) - parseFloat(source_green_estimates[source_name][key])) ).toFixed(2)
+                        }
+                    }
+                }
+            }
+
+            function updateTotalsDOM(source_totals,source_green_totals){
+                for (element of document.getElementsByClassName("calcDollars")) {
+                    element.innerHTML = (parseFloat(source_totals.Dollars) || 0).toLocaleString('en-US', {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                    })
+                }
+                document.getElementById("savings_co2").innerHTML =  (parseFloat(source_green_deltas.CO2) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                document.getElementById("savings_percentage_co2").innerHTML =  (((parseFloat(source_green_deltas.CO2)/parseFloat(source_totals.CO2))*100.00) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                
+                document.getElementById("total_green_co2").innerHTML =  (parseFloat(source_green_totals.CO2) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                document.getElementById("total_co2").innerHTML = (parseFloat(source_totals.CO2) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                document.getElementById("total_mileage").innerHTML = (parseFloat(source_green_deltas.Cars) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                })
+                // document.getElementById("total_homeuse").innerHTML = parseFloat(source_green_deltas.Homes).toLocaleString('en-US', {
+                //     minimumFractionDigits: 1,
+                //     maximumFractionDigits: 1
+                // })
+                document.getElementById("total_lbscoal").innerHTML = (parseFloat(source_green_deltas.Coal) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                document.getElementById("total_flights").innerHTML = (parseFloat(source_green_deltas.Flights) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                })
+                
+                updateSocialMetaText()
+            }
+
+            function updateSocialMetaText() {
+                var sharing_headline = "Where you bank is not climate neutral. "
+                var sharing_text = prepareSharingText(
+                    (((parseFloat(source_green_deltas.CO2)/parseFloat(source_totals.CO2))*100.00) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }), (parseFloat(source_green_deltas.CO2) || 0).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }))
+                var sharing_instagram_image_url = "https://calc.app.metric.systems/images/instagram_share.jpg"
+                var sharing_twitter_image_url = "https://calc.app.metric.systems/images/twitter_share.jpg"
+                var sharing_linkedin_image_url = "https://calc.app.metric.systems/images/linkedin_share.jpg"
+                var redirect_url = "https://bankfwd.org/toolkit/calculator/"
+                // FACEBOOK SECTION
+                getHeadMetaAt(3).setAttribute("content",sharing_text)
+                // TWITTER SECTION
+                if (document.getElementById('twitter-wrapper').childNodes[0]) {
+                    document.getElementById('twitter-wrapper').childNodes[0].remove()
+                }
+                //  ${sharing_twitter_image_url}
+                var twitter_share_text = `${sharing_headline} ${sharing_text} ${redirect_url}`
+                twttr.widgets.createShareButton(
+                '/',
+                document.getElementById('twitter-wrapper'),
+                {
+                    count: 'none',
+                    text: twitter_share_text
+                }).then(function (el) {
+                    // console.log(`Twitter Button created. with ${twitter_share_text}`)
+                });
+                // https://twitter.com/intent/tweet?text=
+                // LINKEDIN SECTION
+
+                
+                
+            }
+
+            function updateTotalsForSliderTileDOM(x, multiplier) {
+                document.getElementById(id).getElementsByClassName("calc_co2")[0].innerHTML = makeCO2(x,multiplier).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                });
+                document.getElementById(id).getElementsByClassName("calc_mileage")[0].innerHTML = makeCars(makeCO2(x,multiplier)).toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                // document.getElementById(id).getElementsByClassName("calc_homeuse")[0].innerHTML = makeHomes(makeCO2(x,multiplier)).toLocaleString('en-US', {
+                //     minimumFractionDigits: 1,
+                //     maximumFractionDigits: 1
+                // });
+                document.getElementById(id).getElementsByClassName("calc_lbscoal")[0].innerHTML = makeLbsCoal(makeCO2(x,multiplier)).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                });
+                document.getElementById(id).getElementsByClassName("calc_flights")[0].innerHTML = makeFlights(makeCO2(x,multiplier)).toLocaleString('en-US', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                });
+                
+            }
+
+            var root = undefined;
+
+            function updateAmchartTotals(sourceData, totaledData) {
+                // console.log(sourceData)
+                if (Object.keys(sourceData).indexOf(' ')>-1 && Object.keys(sourceData).length>1) {
+                    delete sourceData[' ']
+                }
+                var chartdata = [{"Category":"Your Banks"},{"Category":"At Greener Banks"}]
+                var totalCO2 = 0
+                for (var datakey of Object.keys(sourceData)) {
+                    Object.assign(chartdata[0],{
+                        [datakey.toLowerCase().replace(/\s/g,'')]: parseFloat(sourceData[datakey].CO2.toFixed(1))
+                    })
+                    Object.assign(chartdata[1],{
+                        [datakey.toLowerCase().replace(/\s/g,'')]: parseFloat(totaledData[datakey].CO2.toFixed(1))
+                    })
+                    totalCO2 += parseFloat(totaledData[datakey].CO2.toFixed(1))
+                }
+                Object.assign(chartdata[1],{"Reduction": parseFloat((source_totals.CO2-totalCO2).toFixed(1)) })
+                // console.log(chartdata)
+                
+                    
+                // Create root element
+                // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                if (root) {
+                    root.dispose()
+                }
+                root = am5.Root.new("chartdiv");
+                root._logo.dispose();
+                 
+                var myTheme = am5.Theme.new(root);
+                
+                // for (item of chartData) {
+                //     item.year = "2022",
+                //     item.greenbank = 0.000015
+                // }
+
+                myTheme.rule("Grid", ["base"]).setAll({
+                    strokeOpacity: 0.5,
+                    stroke: "#FFFFFF"
+                });
+
+                // myTheme.rule("RoundedRectangle", ["series", "column"]).create("dropFromPrevious", {
+                //     fill: am5.color(0xe4572e),
+                //     stroke: am5.color(0xe4572e)
+                // });
+
+
+                // Set themes
+                // https://www.amcharts.com/docs/v5/concepts/themes/
+                root.setThemes([
+                    am5themes_Animated.new(root),
+                    myTheme
+                ]);
+
+               
+
+
+                // Create chart
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                    panX: false,
+                    panY: false,
+                    wheelX: "panY",
+                    wheelY: "zoomY",
+                    layout: root.verticalLayout
+                }));
+
+                // Add scrollbar
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+                // chart.set("scrollbarY", am5.Scrollbar.new(root, {
+                //     orientation: "vertical"
+                // }));
+
+                // Create axes
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                var xRenderer = am5xy.AxisRendererX.new(root, {});
+                xRenderer.labels.template.setAll({
+                    fill: am5.color(0x0d3556),
+                    fontSize: "0.5em",
+                    // maxWidth: 150,
+                    // oversizedBehavior: "wrap",
+                    textAlign: "center",
+                });
+                xRenderer.grid.template.stroke = "#ffffff";
+                var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                    categoryField: "Category",
+                    renderer: xRenderer,
+                    // tooltip: am5.Tooltip.new(root, {})
+                }));
+                xAxis.children.push(
+                    am5.Label.new(root, {
+                        fill: am5.color(0x98d080),
+                        // rotation: -90,
+                        text: "     Your Banks    At Greener Banks",
+                        fontSize: "1em",
+                        x: am5.p50,
+                        centerX: am5.p50
+                    })
+                );
+                xAxis.children.push(
+                    am5.Label.new(root, {
+                        fill: am5.color(0x98d080),
+                        // rotation: -90,
+                        text: "Bank",
+                        // fontSize: "0.5em",
+                        x: am5.p50,
+                        centerX: am5.p50
+                    })
+                );
+
+                xRenderer.grid.template.setAll({
+                    location: 1
+                })
+
+                xAxis.data.setAll(chartdata);
+
+                yRenderer = am5xy.AxisRendererY.new(root, {
+                    // opposite: true,
+                    strokeOpacity: 1,
+                    // text: "[bold #bfb]{valueY}"
+                })
+                yRenderer.grid.template.setAll({
+                    stroke: "#ffffff"
+                });
+                yRenderer.labels.template.setAll({
+                    fill: am5.color(0x98d080),
+                    fontSize: "0.5em",
+                    maxWidth: 150,
+                    oversizedBehavior: "wrap",
+                    // rotation: -90,
+                    // tooltipText: "TEST",
+                    // text: "test",
+                    // populateText: true,
+                });
+
+                var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                    min: 0,
+                    renderer: yRenderer,
+                    
+                }));
+                yAxis.children.unshift(
+                    am5.Label.new(root, {
+                        fill: am5.color(0x98d080),
+                        rotation: -90,
+                        text: "Emissions",
+                        fontSize: "1em",
+                        y: am5.p50,
+                        // centerY: am5.p50
+                    })
+                );
+
+                // Add legend
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+                chart.topAxesContainer.set("layout", root.horizontalLayout)
+                let cnt = chart.children.push(am5.Container.new(root, {width:am5.p100}))
+                var legend = cnt.children.push(am5.Legend.new(root, {
+                    width:am5.p120,
+                    clickTarget: "none",
+                    layout: am5.GridLayout.new(root, {
+                        maxColumns: 2,
+                        fixedWidthGrid: true
+                    }),
+                    centerX: am5.percent(50),
+                    x: am5.percent(50),
+                }));
+                legend.labels.template.setAll({
+                    fontSize: 14,
+                    fontWeight: "300",
+                });
+
+
+                // Add series
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                
+                function makeSeries(name, fieldName) {
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        name: name,
+                        stacked: true,
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        baseAxis: xAxis,
+                        valueYField: fieldName,
+                        categoryXField: "Category",
+                        // legendLabelText: "[{stroke}][bold #fff]{name}[/]",
+                        legendRangeLabelText: "[{stroke}]{categoryX}[/]",
+                        
+                        fontSize: "0.5em"
+                    }));
+                   
+                    series.columns.template.setAll({
+                        tooltipText: "[ #fff]{name}, balance [ #fff]{categoryX}: [bold #fff]{valueY}",
+                        tooltipX: am5.percent(90)
+                    });
+
+                    series.columns.template.states.create("dropFromPrevious", {
+                        fill: am5.color(0x34e72e),
+                        stroke: am5.color(0x000000)
+                    });
+                    // series.columns.template.set("fillPattern", am5.LinePattern.new(root, {
+                    //     color: am5.color(0x297373),
+                    //     // fill: am5.color(0xffffff),
+                    //     rotation: 45,
+                    //     width: 200,
+                    //     height: 200,
+                    // }));
+                    series.data.setAll(chartdata);
+
+                    // Make stuff animate on load
+                    // https://www.amcharts.com/docs/v5/concepts/animations/
+                    // series.appear();
+                    // Bullets are the column field text overlays
+                    series.bullets.push(function() {
+                        return am5.Bullet.new(root, {
+                            sprite: am5.Label.new(root, {
+                                text: "[bold #fff]{name}",
+                                
+                                maxWidth: 90,
+                                // oversizedBehavior: "fit",
+                                // fill: root.interfaceColors.get("alternativeText"),
+                                centerY: am5.p50,
+                                centerX: am5.p50,
+                                populateText: true,
+                                fontSize: "0.6em"
+                            })
+                        });
+                    });
+                    series.columns.template.onPrivate("height", function(height, target) {
+                        am5.array.each(target.dataItem.bullets, function(bullet) {
+                            if (height > 14) {
+                                bullet.get("sprite").show();
+                            }
+                            else {
+                                bullet.get("sprite").hide();
+                            }
+                        });
+                    });
+
+                    // series.columns.template.adapters.add("fill", function (fill, target) {
+                    //     return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    // });
+
+                    // legend.data.push(series);
+                    
+
+                }
+
+
+                for (const item of Object.keys(sourceData)) { 
+                    makeSeries(item,item.toLowerCase().replace(/\s/g,''))
+                }
+                // makeSeries("Emission Savings","Reduction")
+
+                // Make stuff animate on load
+                // https://www.amcharts.com/docs/v5/concepts/animations/
+                chart.appear(1000, 100);
+
+            
+            }
+
+
+            function makeDollarsAndCents(amount) {
+                let dollars = parseInt(amount)
+                let formattedDollars = dollars.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+                });
+                return formattedDollars
+            }
+
+            function makeCO2(dollars,multiplier){
+                // var co2 = (dollars*1.85)/2000
+                var co2 = (dollars*(multiplier*100))/100
+                return co2
+                
+            }
+
+            function makeCars(tonsCO2e) {
+                const milesDriven = tonsCO2e * 2482
+                return milesDriven
+                
+            }
+
+            function makeHomes(tonsCO2e) {
+                const homesPowered = tonsCO2e * 0.195
+                return homesPowered
+                
+            }
+
+            function makeLbsCoal(tonsCO2e) {
+                const lbsCoal = tonsCO2e * 1106
+                return lbsCoal
+                
+            }
+
+            function makeFlights(tonsCO2e) {
+                const flightsTaken = (tonsCO2e * 2.168)
+                return flightsTaken
+                
+            }
+
+            function createSourceOptions(){
+                var parent = document.getElementById("source_select");
+                for (let [i,source] of sources.entries()) { 
+                    if (i!==0)  {
+                        var option = document.createElement("option");
+                        option.value = i;
+                        option.text = source.name;
+                        if (sources_green_labels.indexOf(source.name)>-1) {
+                            option.text = `* ${source.name}`;
+                            // option.style.background = "#bfb";
+                        }
+                        parent.appendChild(option);
+                    }
+                }
+                
+            }
+
+            function createParentSourceOptions(parent){
+                for (let [i,source] of sources.entries()) { 
+                    var separator_index = (sources.length - sources_green_labels.length-1)
+                    
+                    if (i!==0)  {
+                        var option = document.createElement("option");
+                        option.value = i;
+                        option.text = source.name;
+                        if (sources_green_labels.indexOf(source.name)>-1) {
+                            option.text = `* ${source.name}`;
+                            // option.style.background = "#bfb";
+                        }
+                        parent.appendChild(option);
+                    }
+                    if (i==separator_index) {
+                        var option = document.createElement("option");
+                        option.value = -1;
+                        option.text = "------------------";
+                        parent.appendChild(option);
+                    }
+                }
+                
+            }
+
+            function createSliderMaxOptions(parent) {
+                for (let item of [{'name':'$ 10 K',value:10000},{'name':'$ 50 K',value:50000},{'name':'$ 100 K',value:100000},{'name':'$ 250 K',value:250000},{'name':'$ 1 MM',value:1000000},{'name':'$ 10 MM',value:10000000},{'name':'$ 100 MM',value:100000000}]) { 
+                    var option = document.createElement("option");
+                    option.value = item.value;
+                    option.text = item.name;
+                    if (item.value == 250000) {
+                        option.setAttribute("selected","true");
+                    }
+                    parent.appendChild(option);
+                }
+            }
+
+            function prepareStartTile(i, source) {
+                item = addDisabledSource(document.getElementById('container'),i,source.value)
+                sources_added.push(source.name)
+                // updateSliderTileCalc(sources[i].name, i)
+            }
+
+            function prepareSourceTiles(i, source) {
+                hideAllSources()
+                document.getElementById('chartdiv').classList.remove('hidden')
+                if (!secondaryexists && document.getElementById("source_select_secondary")) {
+                    createParentSourceOptions(document.getElementById("source_select_secondary"))
+                    createSliderMaxOptions(document.getElementById("slider_select_max"))
+                    secondaryexists = true
+                }
+                if (source && sources_added.indexOf(source.name)<0) {
+                    // console.log("prepareSourceTiles IF <0")
+                    item = addSource(document.getElementById('container'),i,source.value)
+                    sources_added.push(source.name)
+                    item.querySelector('#calcSlider').value=0
+                    updateSliderTileCalc(sources[i].name, i)
+                    updateTotals()
+                    // chart_data.push(sources[i])
+                }
+                else {
+                    // console.log("prepareSourceTiles ELSE")
+                    if (source) {
+                        closed_sources.pop(source.name)
+                        if (document.getElementById(source.name)) {
+                            document.getElementById(source.name).style.display = "block"
+                        }
+                        document.getElementsByTagName('lander-template')[0].style.display = "none"
+                        document.getElementsByTagName('slider-template')[0].style.display = "block"
+                        // console.log(sources[i].name)
+                        updateSliderTileCalc(sources[i].name, i)
+                        updateTotals()
+                    }
+                    
+                }
+                
+                // for (var key in sources_added) {
+                    // console.log(sources[i])
+                // }
+                // updateAmchartTotals(source_values)
+            }
+          
+            function createSourceButtons() {
+                for (let [i,source] of sources.entries()) {
+                    var element = document.createElement("div");
+                    element.className = 'calcTextButton'
+                    var handlerForEventClick  = (e) => {
+                        prepareSourceTiles(i, source)
+                    };
+                    
+                    element.addEventListener("click",handlerForEventClick);
+                    element.innerHTML = `${source.name}`;
+                    
+                    document.getElementById('selectors').appendChild(element)
+                    
+                    // document.getElementById('container').appendChild(element)
+                }
+            }
+
+            function createSlidingContainer(){
+                const slidesContainer = document.getElementById("slides-container");
+                const slide = document.querySelector(".slide");
+                const prevButton = document.getElementById("slide-arrow-prev");
+                const nextButton = document.getElementById("slide-arrow-next");
+                nextButton.addEventListener("click", (event) => {
+                    const slideWidth = slide.clientWidth;
+                    slidesContainer.scrollLeft += slideWidth;
+                    if(slidesContainer.scrollLeft >= (slideWidth*2)) {
+                        slidesContainer.scrollLeft -= (slideWidth*2);
+                    }
+                });
+                prevButton.addEventListener("click", () => {
+                    const slideWidth = slide.clientWidth;
+                    slidesContainer.scrollLeft -= slideWidth;
+                    // console.log(slidesContainer.scrollLeft )
+                    // console.log(slideWidth)
+                    if(slidesContainer.scrollLeft ==0) {
+                        slidesContainer.scrollLeft += (slideWidth*2);
+                    }
+                });
+            }
+
+            function flipCard () {
+                let cardTransitionTime = 100;
+                let flipcard = document.getElementById('flipcard')
+                // if (switching) {
+                //     return false
+                // }
+                // switching = true
+                
+                // flipcard.classList.toggle('is-switched')
+
+                if (flipcard.classList.contains('is-switched')){
+                    flipcard.classList.remove('is-switched')
+                        }else{
+                            flipcard.classList.add('is-switched')
+                        }
+                
+                children = [flipcard.firstElementChild.firstElementChild, flipcard.firstElementChild.lastElementChild]
+                // console.log(children)
+                // window.setTimeout(function () {
+                    for (const childEl in children) {
+                        // console.log(children[childEl])
+                        if (children[childEl].classList.contains('is-active')){
+                            children[childEl].classList.remove('is-active')
+                        }else{
+                            children[childEl].classList.add('is-active')
+                        }
+                    }
+                    // flipcard.children().children().classlist.toggle('is-active')
+                    // switching = false
+                // }, cardTransitionTime / 2)
+            }
+
+            function getScreenShotFile(){
+                let src = document.getElementById('totaler');
+                html2canvas(src, { useCORS:true, allowTaint : true})
+                .then((canvas) => {
+                    canvas.style.padding = '2em;'
+                    document.getElementById("hiddenclipboard").appendChild(canvas);
+                    try {
+                        canvas.toBlob((blob) => {
+                            let data = {
+                                files: [new File([blob], 'image.png',{ type: blob.type })]
+                            };
+                            console.log(data)
+                            canvas_blobdata = data
+                            // navigator.clipboard
+                            //     .write(data)
+                            //     .then(() => {
+                            //         // do something
+                            //         console.log("clipboarded")
+                            //         window.open("instagram-stories://share")
+                            //     });
+                        });
+                    } catch (e) {
+                        console.log(e)
+                    }
+                });
+            }
+
+            function getScreenShot(){
+                let src = document.getElementById('totaler');
+                html2canvas(src, { useCORS:true, allowTaint : true})
+                .then((canvas) => {
+                    canvas.style.padding = '2em;'
+                    document.getElementById("hiddenclipboard").appendChild(canvas);
+                    try {
+                        canvas.toBlob((blob) => {
+                            let data = [new ClipboardItem({ [blob.type]: blob })];
+                            console.log(data)
+                            canvas_blobdata = data
+                            // navigator.clipboard
+                            //     .write(data)
+                            //     .then(() => {
+                            //         // do something
+                            //         console.log("clipboarded")
+                            //         window.open("instagram-stories://share")
+                            //     });
+                        });
+                    } catch (e) {
+                        console.log(e)
+                    }
+                });
+            }
+
+            function shareBlobDataToClipboard() {
+                navigator.clipboard
+                    .write(canvas_blobdata)
+                    .then(() => {
+                        // do something
+                        console.log("clipboarded")
+                        // window.open("fsq+kylm3gjcbtswk4rambrt4uyzq1dqcoc0n2hyjgcvbcbe54rj+post://")
+                        window.open("instagram://")
+                    });
+            }
+
+            function shareBlobDataToPhotos() {
+                if (!navigator.canShare(canvas_blobdata)) {
+                    console.log('sharing not possible')
+                    return
+                }
+                navigator.share
+                    (canvas_blobdata)
+                    .then(() => {
+                        // do something
+                        console.log("stored to photos")
+                        // window.open("fsq+kylm3gjcbtswk4rambrt4uyzq1dqcoc0n2hyjgcvbcbe54rj+post://")
+                        window.open("instagram://")
+                    });
+            }
+
+            async function loadRemoteData() {
+                return await fetch('https://bank.meta.metric.systems/v01',{
+                    headers:{
+                        'x-access-token':'test',
+                        'Access-Control-Allow-Origin':'*'
+                    },mode:'cors'})
+                    .then((response) => response.json())
+                    .then((json) => json.data)
+            }
+
+            async function initialize() {
+                document.onmousemove = function(evt){
+                    event.preventDefault();
+                }
+                remotedata = await loadRemoteData()
+                sources = remotedata.all
+                sources_green_labels = remotedata.green_names
+                sources.unshift({'name': ' ', 'value': 0.0})
+                addTotaler(document.getElementById('totaler'))
+                createParentSourceOptions(document.getElementById("source_select_primary"))
+                
+                // createSlidingContainer()
+                first_source = sources.entries().next()
+                prepareStartTile(0,first_source)
+                
+                
+                // am5.ready(function() {}); // end am5.ready()
+            }
+
+            async function reinitialize() {
+                remotedata = await loadRemoteData()
+                sources = remotedata.all
+                sources_green_labels = remotedata.green_names
+                sources.unshift({'name': ' ', 'value': 0.0})
+
+                // first_source = sources.entries().next()
+                // prepareStartTile(0,first_source)
+
+            }
+            
+            initialize()
+        </script>
+        <script defer src="https://cdn.amcharts.com/lib/5/index.js"></script>
+        <script defer src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+        <script defer src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/html2canvas/dist/html2canvas.min.js"></script>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>    
+        <script>
+            window.twttr = (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+                if (d.getElementById(id)) return t;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            
+                t._e = [];
+                t.ready = function(f) {
+                    t._e.push(f);
+                };
+            
+                return t;
+            }(document, "script", "twitter-wjs"));
+          </script>   
+          <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>     
+    </body>
+
+</html>
