@@ -22,5 +22,3 @@ Still in development.
 
 ## Calculator Toolkit Links
 Working/Latest Prototype: ​​https://calc.app.metric.systems/
-Circulation/Template Language (THIS Doc)
-Folder with All Assets: “Pkg for Partners--Cash Carbon Footprint Calculator”
